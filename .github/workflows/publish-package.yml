@@ -46,6 +46,10 @@ jobs:
           npm pack --ignore-scripts --pack-destination dist
           cd dist
           sha256sum *.zip *.tgz > SHA256SUMS.txt
+      - name: Install and query the built npm tarball
+        run: |
+          npm exec --yes --package="./dist/haoxuanjng-lang-kaggle-solutions-skills-$PACKAGE_VERSION.tgz" -- kaggle-solutions-skills install --destination "$RUNNER_TEMP/packaged-skill"
+          python "$RUNNER_TEMP/packaged-skill/scripts/solutions.py" stats
       - name: Publish npm package to GitHub Packages
         env:
           NODE_AUTH_TOKEN: ${{ github.token }}
@@ -53,7 +57,7 @@ jobs:
           if npm view "@haoxuanjng-lang/kaggle-solutions-skills@$PACKAGE_VERSION" version --registry=https://npm.pkg.github.com; then
             echo "Package version already published"
           else
-            npm publish "dist/haoxuanjng-lang-kaggle-solutions-skills-$PACKAGE_VERSION.tgz" --registry=https://npm.pkg.github.com --access public --ignore-scripts
+            npm publish "./dist/haoxuanjng-lang-kaggle-solutions-skills-$PACKAGE_VERSION.tgz" --registry=https://npm.pkg.github.com --access public --ignore-scripts
           fi
       - name: Attach public downloads to release
         env:
