@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="286" viewBox="0 0 1280 286" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">Research workflow and evidence feedback</title>
+  <desc id="desc">Discover relevant solutions, read original sources, distill method cards, hand off experiments, and bring verified results back into the knowledge base.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M1 1L7 4L1 7" stroke="#64748b" stroke-width="1.5"/></marker>
+    <marker id="feedback" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M1 1L7 4L1 7" stroke="#0d9488" stroke-width="1.5"/></marker>
+  </defs>
+  <rect x="1" y="1" width="1278" height="284" rx="18" fill="#f8fafc" stroke="#e2e8f0"/>
+  <g font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="600" letter-spacing="2"><text x="35" y="33" fill="#0284c7">RESEARCH SKILL</text><text x="799" y="33" fill="#7c3aed">COMPETITION WORKFLOW</text></g>
+  <path d="M768 46V182" stroke="#cbd5e1" stroke-dasharray="4 5"/>
+  <g stroke="#64748b" stroke-width="1.7" marker-end="url(#arrow)"><path d="M241 111H275"/><path d="M491 111H525"/><path d="M741 111H790"/><path d="M1006 111H1040"/></g>
+  <rect x="35" y="57" width="206" height="111" rx="12" fill="#e0f2fe" stroke="#bae6fd"/>
+  <rect x="285" y="57" width="206" height="111" rx="12" fill="#e0f2fe" stroke="#bae6fd"/>
+  <rect x="535" y="57" width="206" height="111" rx="12" fill="#e0f2fe" stroke="#bae6fd"/>
+  <rect x="800" y="57" width="206" height="111" rx="12" fill="#ede9fe" stroke="#ddd6fe"/>
+  <rect x="1050" y="57" width="195" height="111" rx="12" fill="#ccfbf1" stroke="#99f6e4"/>
+  <g font-family="Segoe UI,Arial,sans-serif">
+    <g font-size="12" font-weight="600" letter-spacing="1" fill="#0369a1"><text x="53" y="83">01 / DISCOVER</text><text x="303" y="83">02 / READ</text><text x="553" y="83">03 / DISTILL</text></g>
+    <text x="818" y="83" fill="#6d28d9" font-size="12" font-weight="600" letter-spacing="1">04 / HAND OFF</text><text x="1068" y="83" fill="#0f766e" font-size="12" font-weight="600" letter-spacing="1">05 / FEEDBACK</text>
+    <g font-size="20" font-weight="700" fill="#0f172a"><text x="53" y="115">Relevant solutions</text><text x="303" y="115">Original evidence</text><text x="553" y="115">Method cards</text><text x="818" y="115">Run experiments</text><text x="1068" y="115">Actual results</text></g>
+    <g font-size="12" fill="#475569"><text x="53" y="143">Competition + source links</text><text x="303" y="143">Writeups + author code</text><text x="553" y="143">Conditions + hypotheses</text><text x="818" y="143">User-selected workflow</text><text x="1068" y="143">Evidence + counterexamples</text></g>
+  </g>
+  <path d="M1147 170V223Q1147 237 1133 237H652Q638 237 638 223V177" stroke="#0d9488" stroke-width="1.8" marker-end="url(#feedback)"/>
+  <rect x="744" y="220" width="300" height="32" rx="16" fill="#f8fafc"/>
+  <text x="894" y="241" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="14" font-weight="600" fill="#0f766e">Update knowledge with verified results</text>
+</svg>

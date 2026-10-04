@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">Kaggle solutions. Reusable intelligence.</title>
+  <desc id="desc">A blue knowledge graph connects discover, read, distill and validate.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0b1226"/><stop offset="1" stop-color="#132d4d"/></linearGradient>
+    <linearGradient id="accent"><stop stop-color="#38bdf8"/><stop offset="1" stop-color="#a5b4fc"/></linearGradient>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#64748b" opacity=".18"/></pattern>
+  </defs>
+  <rect width="1280" height="420" rx="22" fill="url(#bg)"/>
+  <rect width="1280" height="420" rx="22" fill="url(#dots)"/>
+  <circle cx="1030" cy="190" r="190" fill="#0ea5e9" opacity=".04"/>
+  <path d="M58 65H95" stroke="#38bdf8" stroke-width="4" stroke-linecap="round"/>
+  <g font-family="Segoe UI,Arial,sans-serif">
+    <text x="110" y="71" fill="#94a3b8" font-size="15" font-weight="600" letter-spacing="3">KAGGLE SOLUTIONS SKILLS</text>
+    <text x="58" y="160" fill="#f8fafc" font-size="55" font-weight="700">Kaggle solutions.</text>
+    <text x="58" y="226" fill="url(#accent)" font-size="55" font-weight="700">Reusable intelligence.</text>
+    <text x="60" y="271" fill="#a9bdd4" font-size="20">Evidence-backed research. Knowledge that grows.</text>
+  </g>
+  <g font-family="Segoe UI,Arial,sans-serif" font-size="13" font-weight="600" letter-spacing="1.5" text-anchor="middle">
+    <rect x="58" y="315" width="147" height="36" rx="18" fill="#0ea5e9" fill-opacity=".12" stroke="#38bdf8" stroke-opacity=".35"/><text x="131.5" y="338" fill="#7dd3fc">TRACEABLE</text>
+    <rect x="217" y="315" width="147" height="36" rx="18" fill="#818cf8" fill-opacity=".10" stroke="#a5b4fc" stroke-opacity=".30"/><text x="290.5" y="338" fill="#c7d2fe">SEARCHABLE</text>
+    <rect x="376" y="315" width="147" height="36" rx="18" fill="#2dd4bf" fill-opacity=".08" stroke="#5eead4" stroke-opacity=".28"/><text x="449.5" y="338" fill="#99f6e4">EVOLVING</text>
+  </g>
+  <g stroke="#466586" stroke-width="1.5">
+    <path d="M827 106L986 190L1171 105M986 190L1165 318M986 190L818 308M827 106L818 308M1171 105L1165 318"/>
+    <path d="M986 190L1030 65M986 190L1034 358M827 106L759 193M818 308L759 193" stroke-dasharray="4 7" opacity=".55"/>
+  </g>
+  <g fill="#183651" stroke="#3d6b90"><circle cx="1030" cy="65" r="5"/><circle cx="1034" cy="358" r="5"/><circle cx="759" cy="193" r="5"/></g>
+  <circle cx="986" cy="190" r="57" stroke="#38bdf8" stroke-opacity=".14" stroke-width="15"/>
+  <circle cx="986" cy="190" r="49" fill="#102b46" stroke="#38bdf8" stroke-width="2"/>
+  <g stroke="#7dd3fc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M962 175Q974 171 986 178Q998 171 1010 175V202Q998 198 986 205Q974 198 962 202Z"/><path d="M986 178V205"/></g>
+  <g font-family="Segoe UI,Arial,sans-serif" text-anchor="middle" font-size="13" font-weight="600" letter-spacing="1.4">
+    <circle cx="827" cy="106" r="20" fill="#10334d" stroke="#38bdf8"/><circle cx="827" cy="106" r="5" fill="#38bdf8"/><text x="827" y="149" fill="#bae6fd">DISCOVER</text>
+    <circle cx="1171" cy="105" r="20" fill="#263154" stroke="#a5b4fc"/><circle cx="1171" cy="105" r="5" fill="#a5b4fc"/><text x="1171" y="148" fill="#c7d2fe">READ</text>
+    <circle cx="818" cy="308" r="20" fill="#263154" stroke="#a5b4fc"/><circle cx="818" cy="308" r="5" fill="#a5b4fc"/><text x="818" y="351" fill="#c7d2fe">DISTILL</text>
+    <circle cx="1165" cy="318" r="20" fill="#103d43" stroke="#5eead4"/><circle cx="1165" cy="318" r="5" fill="#5eead4"/><text x="1165" y="361" fill="#99f6e4">VALIDATE</text>
+  </g>
+</svg>

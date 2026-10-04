@@ -19,5 +19,9 @@ credentials.json
 *.egg-info/
 build/
 dist/
+node_modules/
+*.tgz
+output/
+.playwright-cli/
 .pytest_cache/
 .ruff_cache/

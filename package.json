@@ -1,0 +1,24 @@
+{
+  "name": "@haoxuanjng-lang/kaggle-solutions-skills",
+  "version": "0.1.1",
+  "description": "Evidence-backed Kaggle solution research: installable agent skill with offline knowledge",
+  "license": "MIT",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "bin": { "kaggle-solutions-skills": "bin/cli.mjs" },
+  "files": [
+    "bin/cli.mjs", "VERSION", "THIRD_PARTY_NOTICES.md", "docs/assets/*.svg",
+    "skills/kaggle-solutions-skills/SKILL.md", "skills/kaggle-solutions-skills/LICENSE",
+    "skills/kaggle-solutions-skills/agents/*.yaml",
+    "skills/kaggle-solutions-skills/scripts/*.py",
+    "skills/kaggle-solutions-skills/references/*.md",
+    "skills/kaggle-solutions-skills/assets/knowledge/*",
+    "skills/kaggle-solutions-skills/assets/templates/*"
+  ],
+  "scripts": { "test": "node --test tests/npm-installer.test.mjs" },
+  "repository": { "type": "git", "url": "git+https://github.com/haoxuanjng-lang/kaggle-solutions-skills.git" },
+  "homepage": "https://github.com/haoxuanjng-lang/kaggle-solutions-skills#readme",
+  "bugs": { "url": "https://github.com/haoxuanjng-lang/kaggle-solutions-skills/issues" },
+  "keywords": ["kaggle", "codex", "agent-skill", "machine-learning", "solutions"],
+  "publishConfig": { "registry": "https://npm.pkg.github.com", "access": "public" }
+}

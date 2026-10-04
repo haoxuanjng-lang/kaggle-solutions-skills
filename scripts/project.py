@@ -35,6 +35,9 @@ def check():
     pyproject_version = re.search(r'^version\s*=\s*"([^"]+)"', (ROOT / "pyproject.toml").read_text(encoding="utf-8"), re.MULTILINE)
     if metadata.get("metadata", {}).get("version") != version or not pyproject_version or pyproject_version.group(1) != version:
         errors.append("VERSION, pyproject.toml and skill metadata version must agree")
+    npm_metadata = json.loads((ROOT / "package.json").read_text(encoding="utf-8"))
+    if npm_metadata.get("version") != version:
+        errors.append("npm package version must agree with VERSION")
     if (ROOT / "LICENSE").read_bytes() != (SKILL / "LICENSE").read_bytes():
         errors.append("Portable skill license differs from project license")
     ui = yaml.safe_load((SKILL / "agents" / "openai.yaml").read_text(encoding="utf-8"))

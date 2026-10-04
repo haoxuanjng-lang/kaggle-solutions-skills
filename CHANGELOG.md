@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.1 — 2026-10-04
+
+- Added a dependency-free npm installer for the complete offline Codex skill.
+- Added GitHub Packages publishing and public release tarballs for installation without registry credentials.
+- Redesigned the README with a banner, badges, workflow diagram and quick-start navigation.
+- Preserved the original archive snapshot and research workflow.
+
 ## 0.1.0 — 2026-10-04
 
 - Added a Chinese agent-skill entrypoint for solution research, transfer and maintenance.
