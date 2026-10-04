@@ -1,0 +1,16 @@
+{
+  "competition_count": 717,
+  "competitions_without_solutions": 125,
+  "index_sha256": "d4f3cd29d5d818580c7f581db61b28c786240914cbd5f2370bbc2c0dc967935b",
+  "modality_status": "heuristic_hints_only",
+  "retrieved_at": "2026-10-04T07:03:25+00:00",
+  "schema_version": 1,
+  "solution_link_count": 4724,
+  "source_path": "data/competitions.yml",
+  "source_sha256": "72d06647d194e1687598a5b46c1c22f20d293ba20e71f5d14b2baf50df196d36",
+  "source_status": "archive_metadata_only",
+  "unique_solution_url_count": 4708,
+  "upstream_commit": "6414951ae88d252a6c92d4489ba389b2b7cb40c7",
+  "upstream_committed_at": "2026-09-05T22:12:43-04:00",
+  "upstream_repository": "https://github.com/faridrashidi/kaggle-solutions"
+}

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Kaggle Solutions Skills"
+  short_description: "Research solution evidence and transferable experiments"
+  default_prompt: "Use $kaggle-solutions-skills to research similar Kaggle competitions, explain sourced decisions, and propose experiments for my target competition."
+policy:
+  allow_implicit_invocation: true

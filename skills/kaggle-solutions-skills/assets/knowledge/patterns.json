@@ -1,0 +1,725 @@
+[
+  {
+    "id": "temporal-horizon-validation",
+    "title": "Validate the deployment horizon, not randomly shuffled rows",
+    "tags": [
+      "time-series",
+      "forecasting",
+      "validation",
+      "rolling origin",
+      "lag features"
+    ],
+    "competitions": [
+      "m5-forecasting-accuracy"
+    ],
+    "decision": "Evaluate each candidate on deployment-length time windows; inspect variation and failure periods before choosing one forecast strategy.",
+    "applicability": [
+      "Future observations are withheld in deployment; horizon and entity structure are known."
+    ],
+    "pitfalls": [
+      "A lag that uses actual future targets during validation makes recursive inference look artificially strong.",
+      "The author also considered public LB in selection; transfer the time-window test, not unlimited public-LB tuning."
+    ],
+    "minimal_experiment": "On fixed windows compare one recursive and one direct forecast. Record each window score, aggregate metric and end-to-end lag generation; keep training budget equal.",
+    "evidence": [
+      {
+        "source_id": "m5",
+        "locator": "CV strategies; Opinion",
+        "claim_type": "author_report",
+        "observation": "The author used three adjacent 28-day validation windows and compared recursive/non-recursive forecasts across them."
+      }
+    ],
+    "transfer_status": "hypothesis_not_locally_reproduced",
+    "reviewed_at": "2026-10-04"
+  },
+  {
+    "id": "entity-aligned-validation",
+    "title": "Share entity-level splits and prediction identities across models",
+    "tags": [
+      "group",
+      "validation",
+      "OOF",
+      "patient",
+      "customer",
+      "stacking"
+    ],
+    "competitions": [
+      "amex-default-prediction",
+      "hms-harmful-brain-activity-classification"
+    ],
+    "decision": "Choose the deployment entity as the split boundary; retain entity IDs, row IDs and split versions when saving predictions for downstream blending.",
+    "applicability": [
+      "Repeated observations belong to the same customer, essay, patient or recording."
+    ],
+    "pitfalls": [
+      "HMS reports Group K-fold but the root post does not state the group-column name; verify code before claiming patient-level splitting.",
+      "An OOF filename does not establish that every row was predicted by a model that excluded that entity."
+    ],
+    "minimal_experiment": "Generate a split manifest; check entity intersections and one-to-one ID joins for two prediction tables before testing their blend.",
+    "evidence": [
+      {
+        "source_id": "amex",
+        "locator": "Project Structure; Create unified kfold and holdout split",
+        "claim_type": "author_report",
+        "observation": "The team aligned feature tables by customer UID and maintained common folds plus an independent customer holdout."
+      },
+      {
+        "source_id": "hms",
+        "locator": "Team Validation Strategy",
+        "claim_type": "author_report",
+        "observation": "The team shared one verification procedure and used five-fold Group K-fold with a vote filter."
+      }
+    ],
+    "transfer_status": "hypothesis_not_locally_reproduced",
+    "reviewed_at": "2026-10-04"
+  },
+  {
+    "id": "tabular-history-features",
+    "title": "Turn repeated histories into structured feature families",
+    "tags": [
+      "tabular",
+      "aggregation",
+      "customer history",
+      "feature engineering",
+      "default credit"
+    ],
+    "competitions": [
+      "amex-default-prediction"
+    ],
+    "decision": "Start with grouped last/mean/variation and time-difference features; add families separately so improvements can be attributed.",
+    "applicability": [
+      "Tabular prediction uses multiple ordered observations per entity."
+    ],
+    "pitfalls": [
+      "Fitted encodings, selection and transformations must respect the validation boundary.",
+      "The author explored thousands of features with large resources; that scale is not a minimum requirement."
+    ],
+    "minimal_experiment": "Compare last-observation baseline, aggregate family and temporal-difference family on the same entity folds; log memory, time and fold scores.",
+    "evidence": [
+      {
+        "source_id": "amex",
+        "locator": "FE; Features selection",
+        "claim_type": "author_report",
+        "observation": "Features included customer aggregates, differences, ratios, lags and type-specific transformations; the team then selected subsets."
+      }
+    ],
+    "transfer_status": "hypothesis_not_locally_reproduced",
+    "reviewed_at": "2026-10-04"
+  },
+  {
+    "id": "metric-proxy-audit",
+    "title": "Treat a faster proxy metric as a hypothesis",
+    "tags": [
+      "metric",
+      "tabular",
+      "validation",
+      "AUC",
+      "custom metric"
+    ],
+    "competitions": [
+      "amex-default-prediction"
+    ],
+    "decision": "Use the official metric for the target decision. If a cheap/stable proxy helps iteration, measure its agreement with the official metric on candidate runs.",
+    "applicability": [
+      "The official metric is noisy or expensive and a proposed proxy has a plausible relationship."
+    ],
+    "pitfalls": [
+      "The archive sometimes has blank or placeholder metric names; recover the actual formula from official evaluation documentation.",
+      "Proxy improvements alone do not establish a competition improvement."
+    ],
+    "minimal_experiment": "Evaluate several existing predictions with both metrics; record ranking disagreements and only then decide whether the proxy is useful.",
+    "evidence": [
+      {
+        "source_id": "amex",
+        "locator": "Features selection",
+        "claim_type": "author_report",
+        "observation": "The authors monitored the AMEX metric but used ROC AUC for many experiments because they considered AMEX unstable."
+      }
+    ],
+    "transfer_status": "hypothesis_not_locally_reproduced",
+    "reviewed_at": "2026-10-04"
+  },
+  {
+    "id": "ensemble-marginal-gain",
+    "title": "Judge a model by what it adds to the current ensemble",
+    "tags": [
+      "ensemble",
+      "diversity",
+      "OOF",
+      "blending",
+      "multiple seeds"
+    ],
+    "competitions": [
+      "feedback-prize-effectiveness",
+      "m5-forecasting-accuracy"
+    ],
+    "decision": "Evaluate marginal ensemble gain on aligned held-out predictions instead of selecting solely by each model's individual score.",
+    "applicability": [
+      "Multiple legal models produce predictions for the same held-out rows."
+    ],
+    "pitfalls": [
+      "Ensemble weights can overfit the same validation set; separate weight fitting from evaluation where the existing competition workflow requires it.",
+      "A small single-model score loss may buy diversity, but diversity without measured gain is insufficient."
+    ],
+    "minimal_experiment": "Add each candidate to one fixed base blend under the same weight-fitting procedure; record individual score, blend score and inference cost.",
+    "evidence": [
+      {
+        "source_id": "feedback-main",
+        "locator": "Cross validation; Modeling",
+        "claim_type": "author_report",
+        "observation": "Single-model scores did not reliably predict blend value; the team checked three-seed blends and complementary input formulations."
+      },
+      {
+        "source_id": "m5",
+        "locator": "Opinion",
+        "claim_type": "author_report",
+        "observation": "Recursive and non-recursive forecasts performed differently by period, motivating their combination."
+      }
+    ],
+    "transfer_status": "hypothesis_not_locally_reproduced",
+    "reviewed_at": "2026-10-04"
+  },
+  {
+    "id": "retrieval-then-ranking",
+    "title": "Separate candidate coverage from candidate ranking",
+    "tags": [
+      "recommender",
+      "retrieval",
+      "ranking",
+      "candidate recall",
+      "covisitation"
+    ],
+    "competitions": [
+      "otto-recommender-system"
+    ],
+    "decision": "Measure candidate recall before spending effort on the reranker; improve coverage with complementary retrieval sources.",
+    "applicability": [
+      "The output chooses a small ranked set from a very large item catalog."
+    ],
+    "pitfalls": [
+      "A reranker cannot recover a relevant item absent from its candidate set.",
+      "The reported candidate count and negative sampling rates reflect this author's hardware and data, not universal settings."
+    ],
+    "minimal_experiment": "Compare revisit-only, plus covisitation and plus one embedding retriever at a fixed candidate budget. Measure candidate recall and final weighted recall separately.",
+    "evidence": [
+      {
+        "source_id": "otto",
+        "locator": "Candidates; Reranker",
+        "claim_type": "author_report",
+        "observation": "Candidates came from visited items, multiple covisitation matrices and neural retrieval; LGBM rankers then scored candidates."
+      }
+    ],
+    "transfer_status": "hypothesis_not_locally_reproduced",
+    "reviewed_at": "2026-10-04"
+  },
+  {
+    "id": "pipeline-ablation",
+    "title": "Remove an information source from every stage in its ablation",
+    "tags": [
+      "ablation",
+      "recommender",
+      "pipeline",
+      "features",
+      "retrieval"
+    ],
+    "competitions": [
+      "otto-recommender-system"
+    ],
+    "decision": "Define the unit of an ablation as an information source or decision, and remove all paths through which it reaches the output.",
+    "applicability": [
+      "Features, retrieval, cached embeddings or auxiliary predictions are reused by several pipeline stages."
+    ],
+    "pitfalls": [
+      "Removing only a final feature while leaving its candidates/cache intact understates dependence on that source."
+    ],
+    "minimal_experiment": "Trace one shared signal through the pipeline, disable all its consumers and compare full-pipeline validation under the same split.",
+    "evidence": [
+      {
+        "source_id": "otto",
+        "locator": "ablation study",
+        "claim_type": "author_report",
+        "observation": "When an information source fed both candidate generation and reranking, the authors removed it from both for the ablation."
+      }
+    ],
+    "transfer_status": "hypothesis_not_locally_reproduced",
+    "reviewed_at": "2026-10-04"
+  },
+  {
+    "id": "pseudo-label-fold-isolation",
+    "title": "Generate pseudo labels within the fold boundary",
+    "tags": [
+      "pseudo labeling",
+      "teacher",
+      "OOF",
+      "text",
+      "external data"
+    ],
+    "competitions": [
+      "birdclef-2024",
+      "feedback-prize-effectiveness"
+    ],
+    "decision": "Treat pseudo labels as model-derived artifacts with teacher training IDs and fold provenance; only use data permitted for the target competition.",
+    "applicability": [
+      "Useful permitted unlabeled/weakly labeled data exist and teachers generalize to them."
+    ],
+    "pitfalls": [
+      "A teacher trained on validation labels leaks those labels into its student even when the student never reads them directly.",
+      "More pseudo-label rounds are not automatically better; recheck gains and runtime."
+    ],
+    "minimal_experiment": "Compare no pseudo labels and one fold-specific teacher round on unchanged folds; inspect quality and class coverage of the added examples.",
+    "evidence": [
+      {
+        "source_id": "feedback-main",
+        "locator": "Pseudo labels",
+        "claim_type": "author_report",
+        "observation": "The team generated separate fold-safe and full-data pseudo-label versions for prior competition data."
+      },
+      {
+        "source_id": "birdclef",
+        "locator": "Data/labels preprocessing; What didn't work",
+        "claim_type": "author_report",
+        "observation": "Unlabeled soundscape pseudo labels helped; a high pseudo-label coefficient on training audio hurt."
+      }
+    ],
+    "transfer_status": "hypothesis_not_locally_reproduced",
+    "reviewed_at": "2026-10-04"
+  },
+  {
+    "id": "audio-context-alignment",
+    "title": "Match audio context, label unit and prediction window",
+    "tags": [
+      "audio",
+      "window",
+      "soundscape",
+      "mel spectrogram",
+      "context"
+    ],
+    "competitions": [
+      "birdclef-2024"
+    ],
+    "decision": "Document how source recordings map to training windows, labels and submission rows; compare context schemes with identical boundary handling.",
+    "applicability": [
+      "Audio labels are assigned to fixed windows while events cross window boundaries."
+    ],
+    "pitfalls": [
+      "Overlapping windows from one recording must not cross train/validation boundaries.",
+      "CE training with sigmoid inference was specific to this report; do not treat it as a default multilabel recipe."
+    ],
+    "minimal_experiment": "Compare one native-window baseline and one centered-context model; test short recordings and the first/last prediction windows.",
+    "evidence": [
+      {
+        "source_id": "birdclef",
+        "locator": "Model input; Postprocessing; What didn't work",
+        "claim_type": "author_report",
+        "observation": "The authors trained on 10-second inputs built around 5-second label units and used matching context in inference; 10-second training with 5-second inference underperformed."
+      }
+    ],
+    "transfer_status": "hypothesis_not_locally_reproduced",
+    "reviewed_at": "2026-10-04"
+  },
+  {
+    "id": "source-quality-audit",
+    "title": "Audit data quality changes as model experiments",
+    "tags": [
+      "audio",
+      "label noise",
+      "duplicates",
+      "quality filtering",
+      "data cleaning"
+    ],
+    "competitions": [
+      "birdclef-2024"
+    ],
+    "decision": "Inspect duplicates and source quality, then evaluate each proposed filter separately with source and class coverage preserved.",
+    "applicability": [
+      "Label noise, duplicated inputs or mismatched recording distributions are plausible."
+    ],
+    "pitfalls": [
+      "A teacher-based filter can remove rare/hard true positives; record what was removed.",
+      "The author's favorable fold/signal-statistic choice is a retrospective report, not proof that choosing the easiest fold improves generalization."
+    ],
+    "minimal_experiment": "Compare raw data, deduplication and one label-quality filter on fixed recording-group splits; examine per-class errors and retained counts.",
+    "evidence": [
+      {
+        "source_id": "birdclef",
+        "locator": "Data/labels preprocessing; What didn't work",
+        "claim_type": "author_report",
+        "observation": "The team removed duplicate audio, filtered/reweighted some labels using a pretrained classifier, and reported failures for several extra-data choices."
+      }
+    ],
+    "transfer_status": "hypothesis_not_locally_reproduced",
+    "reviewed_at": "2026-10-04"
+  },
+  {
+    "id": "inference-budget",
+    "title": "Measure the complete inference pipeline before scaling models",
+    "tags": [
+      "CPU",
+      "runtime",
+      "OpenVINO",
+      "inference",
+      "audio",
+      "efficiency"
+    ],
+    "competitions": [
+      "birdclef-2024"
+    ],
+    "decision": "Profile preprocessing, model calls, postprocessing and startup separately; choose models by validation gain under the real hardware/time limit.",
+    "applicability": [
+      "A code competition reruns inference under constrained runtime or CPU/GPU availability."
+    ],
+    "pitfalls": [
+      "Cached preprocessing can trade time for memory; measure full test scale.",
+      "Author timings describe the historical environment and cannot establish current performance."
+    ],
+    "minimal_experiment": "Run one realistic inference batch plus a full-size estimate on target hardware. Benchmark one cache/compiler change and verify prediction agreement.",
+    "evidence": [
+      {
+        "source_id": "birdclef",
+        "locator": "Inference time optimization; Models",
+        "claim_type": "author_report",
+        "observation": "Fixed-shape OpenVINO, parallel spectrogram computation and cached mels supported CPU inference; slower alternative architectures did not improve their solution."
+      }
+    ],
+    "transfer_status": "hypothesis_not_locally_reproduced",
+    "reviewed_at": "2026-10-04"
+  },
+  {
+    "id": "ensemble-distillation",
+    "title": "Compress an expensive ensemble into a soft-label student",
+    "tags": [
+      "distillation",
+      "teacher student",
+      "text",
+      "runtime",
+      "OOF",
+      "efficiency"
+    ],
+    "competitions": [
+      "feedback-prize-effectiveness"
+    ],
+    "decision": "If the ensemble exceeds the inference budget, test a student against the teacher's held-out predictions and the official metric.",
+    "applicability": [
+      "The teacher is strong, legal training inputs exist, and one smaller model can satisfy deployment constraints."
+    ],
+    "pitfalls": [
+      "This source describes the efficiency prize, not a replacement rank-one main solution.",
+      "Student evaluation still needs entity-held-out labels; in-sample teacher predictions are not independent validation."
+    ],
+    "minimal_experiment": "Train one student from fold-safe soft labels, compare it with teacher and hard-label student, and measure full inference time including tokenization.",
+    "evidence": [
+      {
+        "source_id": "feedback",
+        "locator": "Model design; Inference optimization",
+        "claim_type": "author_report",
+        "observation": "The efficiency-prize model learned from soft pseudo labels on prior data and OOF soft labels on train data; length-aware pretokenization further reduced runtime."
+      }
+    ],
+    "transfer_status": "hypothesis_not_locally_reproduced",
+    "reviewed_at": "2026-10-04"
+  },
+  {
+    "id": "localize-then-classify",
+    "title": "Localize anatomy before modeling severity",
+    "tags": [
+      "vision",
+      "medical",
+      "RSNA",
+      "localization",
+      "MIL",
+      "multi-stage"
+    ],
+    "competitions": [
+      "rsna-2024-lumbar-spine-degenerative-classification"
+    ],
+    "decision": "For sparse targets in large images/volumes, compare a localization-plus-classification pipeline against a direct baseline.",
+    "applicability": [
+      "Useful localized structures exist and downstream labels depend on a small part of a larger input."
+    ],
+    "pitfalls": [
+      "Use held-out localization predictions for downstream validation; ground-truth crops hide stage-one errors.",
+      "This competition evidence establishes no clinical diagnosis or clinical validation."
+    ],
+    "minimal_experiment": "Freeze one localizer, generate held-out crops and compare mean pooling with one MIL head under the same study splits.",
+    "evidence": [
+      {
+        "source_id": "rsna",
+        "locator": "Summary; 1st stage; 2nd stage",
+        "claim_type": "author_report",
+        "observation": "Slice/coordinate prediction created crops for downstream severity models; MIL and bi-LSTM aggregated the resulting image instances."
+      }
+    ],
+    "transfer_status": "hypothesis_not_locally_reproduced",
+    "reviewed_at": "2026-10-04"
+  },
+  {
+    "id": "stage-error-augmentation",
+    "title": "Train the downstream stage on realistic upstream errors",
+    "tags": [
+      "vision",
+      "localization",
+      "augmentation",
+      "robustness",
+      "pipeline"
+    ],
+    "competitions": [
+      "rsna-2024-lumbar-spine-degenerative-classification"
+    ],
+    "decision": "Estimate upstream error from held-out predictions and reproduce its plausible range during downstream training.",
+    "applicability": [
+      "A model consumes coordinates, retrieval results or features estimated by another model."
+    ],
+    "pitfalls": [
+      "Arbitrary perturbations can produce unrealistic samples; large offsets may erase the target.",
+      "Estimate error without validation-label contamination in the final comparison."
+    ],
+    "minimal_experiment": "Compare no perturbation and measured-error perturbation, stratifying downstream score by localization-error size.",
+    "evidence": [
+      {
+        "source_id": "rsna",
+        "locator": "data augmentations",
+        "claim_type": "author_report",
+        "observation": "The author perturbed coordinates and slice indices, with slice-shift probability tied to observed localization errors."
+      }
+    ],
+    "transfer_status": "hypothesis_not_locally_reproduced",
+    "reviewed_at": "2026-10-04"
+  },
+  {
+    "id": "open-set-identity",
+    "title": "Combine embedding retrieval with classification for unseen identities",
+    "tags": [
+      "vision",
+      "ArcFace",
+      "embedding",
+      "open set",
+      "retrieval",
+      "new individual"
+    ],
+    "competitions": [
+      "happy-whale-and-dolphin"
+    ],
+    "decision": "For identity matching, evaluate known and unseen identities separately and compare embedding retrieval with classifier scores.",
+    "applicability": [
+      "The test can include identities absent from training, and the metric scores ranked identity candidates."
+    ],
+    "pitfalls": [
+      "The author tuned unknown-frequency thresholds using submissions; that frequency is not a transferable constant.",
+      "KNN and classifier calibration can vary with per-identity sample count and train/test shift."
+    ],
+    "minimal_experiment": "Hold out some identities entirely, compare KNN/classifier/blend and select the unknown threshold on held-out identities.",
+    "evidence": [
+      {
+        "source_id": "happywhale",
+        "locator": "Overview; Head; Postprocess",
+        "claim_type": "author_report",
+        "observation": "Sub-center ArcFace embeddings supported KNN retrieval; classifier outputs were blended and low-confidence cases were labeled new_individual."
+      }
+    ],
+    "transfer_status": "hypothesis_not_locally_reproduced",
+    "reviewed_at": "2026-10-04"
+  },
+  {
+    "id": "simulation-opponent-diversity",
+    "title": "Maintain a frozen opponent pool and test both perspectives",
+    "tags": [
+      "simulation",
+      "agent",
+      "RL",
+      "self play",
+      "opponent pool",
+      "validation"
+    ],
+    "competitions": [
+      "lux-ai-season-3"
+    ],
+    "decision": "Use opponent diversity to reveal policy regressions; verify observation/action transforms for both player positions.",
+    "applicability": [
+      "A legal game agent is evaluated against evolving opponents in a symmetric or transformable environment."
+    ],
+    "pitfalls": [
+      "An opponent used for training is not an independent test opponent.",
+      "The reported billions of training steps are historical resource use, not a prerequisite for this pattern."
+    ],
+    "minimal_experiment": "Evaluate current and candidate policies against frozen opponents on identical seeds in both positions; record W/L/T, illegal actions and timeouts.",
+    "evidence": [
+      {
+        "source_id": "lux",
+        "locator": "Training Procedure; Implementation Details",
+        "claim_type": "author_report",
+        "observation": "The authors mixed self-play with frozen older/teacher opponents and normalized player perspective with coordinate transforms."
+      }
+    ],
+    "transfer_status": "hypothesis_not_locally_reproduced",
+    "reviewed_at": "2026-10-04"
+  },
+  {
+    "id": "simulation-runtime-fallback",
+    "title": "Use a measured fallback when expensive test-time augmentation runs out of budget",
+    "tags": [
+      "simulation",
+      "agent",
+      "timeout",
+      "inference",
+      "augmentation"
+    ],
+    "competitions": [
+      "lux-ai-season-3"
+    ],
+    "decision": "Profile per-step and accumulated inference cost; add a fallback whose actions are still legal when the expensive path is skipped.",
+    "applicability": [
+      "The environment has per-step or cumulative execution limits and an optional expensive policy step."
+    ],
+    "pitfalls": [
+      "The historical 30-second trigger depends on that environment; compute a threshold from current limits.",
+      "A fallback must not leave stale recurrent state or untransformed actions."
+    ],
+    "minimal_experiment": "Force the fallback threshold in local matches; verify legality and state transitions while comparing timeout rate and win rate.",
+    "evidence": [
+      {
+        "source_id": "lux",
+        "locator": "Kaggle Inference: Flip-Based Data Augmentation",
+        "claim_type": "author_report",
+        "observation": "The authors disabled flip-based inference augmentation when accumulated overtime exceeded a threshold."
+      }
+    ],
+    "transfer_status": "hypothesis_not_locally_reproduced",
+    "reviewed_at": "2026-10-04"
+  },
+  {
+    "id": "domain-alignment-grid",
+    "title": "Reformulate alignment as a probability grid with domain channels",
+    "tags": [
+      "time-series",
+      "geology",
+      "rogii",
+      "alignment",
+      "UNet",
+      "physics",
+      "probability map"
+    ],
+    "competitions": [
+      "rogii-wellbore-geology-prediction"
+    ],
+    "decision": "When targets represent alignment or trajectories, test a structured probability representation and a simple expected-path decoder before making the backbone larger.",
+    "applicability": [
+      "A reference sequence and target sequence have physically meaningful alignment coordinates."
+    ],
+    "pitfalls": [
+      "Grid range/resolution can truncate valid paths; inspect boundary errors.",
+      "PF and neighbor channels require independent generation for held-out wells; preserved physical constraints do not guarantee label correctness."
+    ],
+    "minimal_experiment": "On fixed well splits compare direct regression and a coarse alignment grid. Add one domain channel; report official metric and boundary/outlier cases.",
+    "evidence": [
+      {
+        "source_id": "rogii",
+        "locator": "Task Formulation and Loss; Features; Data Augmentation",
+        "claim_type": "author_report",
+        "observation": "The author predicted a typewell-by-horizontal-well probability map, with cross entropy plus expected-path/domain losses and PF/neighbor channels."
+      }
+    ],
+    "transfer_status": "hypothesis_not_locally_reproduced",
+    "reviewed_at": "2026-10-04"
+  },
+  {
+    "id": "reliability-aware-routing",
+    "title": "Route auxiliary models by measured feature reliability",
+    "tags": [
+      "ensemble",
+      "rogii",
+      "neighbor",
+      "reliability",
+      "distribution shift",
+      "CV LB discrepancy"
+    ],
+    "competitions": [
+      "rogii-wellbore-geology-prediction"
+    ],
+    "decision": "Analyze disagreement by subgroup and data coverage before dropping a locally useful signal; compare a reliability-aware blend with a global blend.",
+    "applicability": [
+      "An auxiliary data source is missing, sparse or shifted for identifiable examples."
+    ],
+    "pitfalls": [
+      "The author attributed remaining disagreement to inconsistent labels; that attribution is an author hypothesis, not a verified cause.",
+      "A standalone feature gain may disappear in the strongest single model yet add ensemble diversity."
+    ],
+    "minimal_experiment": "Define reliability from input-only statistics, fit routing within training folds, then evaluate global versus gated blend on held-out wells.",
+    "evidence": [
+      {
+        "source_id": "rogii",
+        "locator": "XY Neighbor Information; Ensemble; What didn't work",
+        "claim_type": "author_report",
+        "observation": "Neighbor features improved local CV but hurt public LB; the author investigated neighborhood statistics and used models without neighbors where that information was unreliable."
+      }
+    ],
+    "transfer_status": "hypothesis_not_locally_reproduced",
+    "reviewed_at": "2026-10-04"
+  },
+  {
+    "id": "controller-residual-matching",
+    "title": "Investigate the data-generating mechanism before adding model complexity",
+    "tags": [
+      "time-series",
+      "simulation data",
+      "physics",
+      "controller",
+      "postprocessing"
+    ],
+    "competitions": [
+      "ventilator-pressure-prediction"
+    ],
+    "decision": "When inputs were produced by a documented process, test its equations and residuals as a separate hypothesis with a fallback model.",
+    "applicability": [
+      "The competition data generator is documented and its permitted inputs identify a stable relationship."
+    ],
+    "pitfalls": [
+      "Matching may exploit benchmark-specific simulation artifacts and need not transfer to real data.",
+      "Do not seek hidden labels or use an unpermitted source; confirm the competition rules for the proposed mechanism."
+    ],
+    "minimal_experiment": "Test a small labeled training subset against the forward process; report coverage, error on matched/unmatched groups and sensitivity to added noise.",
+    "evidence": [
+      {
+        "source_id": "ventilator",
+        "locator": "Deep Learning Models; Matching data with PID controllers",
+        "claim_type": "author_report",
+        "observation": "The authors combined deep sequence models with reconstruction of the simulated controller, finding exact matches for a portion of the benchmark."
+      }
+    ],
+    "transfer_status": "hypothesis_not_locally_reproduced",
+    "reviewed_at": "2026-10-04"
+  },
+  {
+    "id": "iterated-local-search",
+    "title": "Combine local improvement with perturbations and an exact scorer",
+    "tags": [
+      "optimization",
+      "search",
+      "permutation",
+      "surrogate",
+      "ILS",
+      "batch scoring"
+    ],
+    "competitions": [
+      "santa-2024"
+    ],
+    "decision": "Use cheap screening to allocate exact evaluations while retaining the official scorer as the acceptance criterion.",
+    "applicability": [
+      "The solution is a valid discrete configuration/permutation and exact scoring is expensive."
+    ],
+    "pitfalls": [
+      "Surrogate error can discard useful candidates; reserve some exact evaluations for calibration/exploration.",
+      "Repository has no declared license; use the documented idea and original implementation unless reuse is permitted."
+    ],
+    "minimal_experiment": "Under equal exact-evaluation budgets compare local search and perturbation-assisted search, then test one surrogate screen; checkpoint the best valid solution.",
+    "evidence": [
+      {
+        "source_id": "santa-code",
+        "locator": "Overview; Local Search; NN-Based Pruning",
+        "claim_type": "author_report",
+        "observation": "The author code README describes iterated local search, kicks, depth-first neighborhood exploration and lightweight neural pruning before expensive exact scoring."
+      }
+    ],
+    "transfer_status": "hypothesis_not_locally_reproduced",
+    "reviewed_at": "2026-10-04"
+  }
+]

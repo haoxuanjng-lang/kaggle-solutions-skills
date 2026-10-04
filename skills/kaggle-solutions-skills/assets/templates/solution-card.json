@@ -1,0 +1,18 @@
+{
+  "id": "replace-with-specific-method-id",
+  "title": "Replace with a decision",
+  "tags": ["replace-with-retrieval-tags"],
+  "competitions": ["replace-with-archived-competition-slug"],
+  "decision": "Replace with the next action this evidence changes",
+  "applicability": ["Replace with conditions for transfer"],
+  "pitfalls": ["Replace with a source-backed failure or transfer uncertainty"],
+  "minimal_experiment": "Replace with a concrete candidate/control and observation",
+  "evidence": [{
+    "source_id": "replace-with-read-source-id",
+    "locator": "Replace with heading/function/cell",
+    "claim_type": "author_report",
+    "observation": "Replace with a faithful paraphrase; measurements are unknown unless reported"
+  }],
+  "transfer_status": "hypothesis_not_locally_reproduced",
+  "reviewed_at": "YYYY-MM-DD"
+}
