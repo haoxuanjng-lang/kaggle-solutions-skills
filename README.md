@@ -97,6 +97,7 @@ GitHub CI 检查结构、来源关联、索引一致性和脚本行为。每周�
 - [维护流程](skills/kaggle-solutions-skills/references/maintenance.md)
 - [知识字段](skills/kaggle-solutions-skills/references/knowledge-schema.md)
 - [后续路线](docs/roadmap.md)
+- [本版本验证记录](docs/validation.md)
 - [更新记录](CHANGELOG.md)
 - [来源和第三方许可](THIRD_PARTY_NOTICES.md)
 
