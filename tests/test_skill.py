@@ -8,6 +8,8 @@ import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
+from urllib.error import HTTPError
+import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILL = ROOT / 'skills' / 'kaggle-solutions-skills'
@@ -48,6 +50,19 @@ FIXTURE = b'''competitions:
 
 
 class ArchiveBehavior(unittest.TestCase):
+    def test_anonymous_github_limit_uses_authenticated_cli_without_token_export(self):
+        error = HTTPError('https://api.github.com/repos/example/repo',403,'rate limit',{},None)
+        response = subprocess.CompletedProcess(['gh'],0,b'{"sha":"example"}',b'')
+        with patch.object(solutions,'urlopen',side_effect=error), patch.object(solutions.subprocess,'run',return_value=response) as api:
+            self.assertEqual(response.stdout,solutions.download('https://api.github.com/repos/example/repo'))
+            self.assertEqual(['gh','api','https://api.github.com/repos/example/repo'],api.call_args.args[0])
+
+    def test_failed_github_limit_fallback_is_actionable(self):
+        error = HTTPError('https://api.github.com/repos/example/repo',403,'rate limit',{},None)
+        with patch.object(solutions,'urlopen',side_effect=error), patch.object(solutions.subprocess,'run',side_effect=FileNotFoundError):
+            with self.assertRaisesRegex(ValueError,'source-dir'):
+                solutions.download('https://api.github.com/repos/example/repo')
+
     def test_false_string_null_solutions_and_unknown_metric(self):
         rows = {row['slug']: row for row in solutions.normalize(FIXTURE, COMMIT)}
         self.assertFalse(rows['sales-example']['archive_done'])
@@ -160,6 +175,16 @@ class RetrievalBehavior(unittest.TestCase):
 
 
 class EvidenceAndDistribution(unittest.TestCase):
+    def test_package_contains_exactly_the_portable_allowlist(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory)/'skill.zip'
+            result = project.package(output)
+            self.assertTrue(result['crc_and_bytes_verified'])
+            with zipfile.ZipFile(output) as archive:
+                names = archive.namelist()
+                self.assertEqual(len(project.skill_files()),len(names))
+                self.assertIn(SKILL.name+'/LICENSE',names)
+                self.assertTrue(all(name.startswith(SKILL.name+'/') for name in names))
     def test_missing_read_source_cannot_support_a_card(self):
         with tempfile.TemporaryDirectory() as directory:
             data = Path(directory)

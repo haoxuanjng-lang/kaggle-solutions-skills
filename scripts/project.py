@@ -9,6 +9,7 @@ import json
 import os
 import re
 import shutil
+import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -34,6 +35,8 @@ def check():
     pyproject_version = re.search(r'^version\s*=\s*"([^"]+)"', (ROOT / "pyproject.toml").read_text(encoding="utf-8"), re.MULTILINE)
     if metadata.get("metadata", {}).get("version") != version or not pyproject_version or pyproject_version.group(1) != version:
         errors.append("VERSION, pyproject.toml and skill metadata version must agree")
+    if (ROOT / "LICENSE").read_bytes() != (SKILL / "LICENSE").read_bytes():
+        errors.append("Portable skill license differs from project license")
     ui = yaml.safe_load((SKILL / "agents" / "openai.yaml").read_text(encoding="utf-8"))
     if not 25 <= len(ui["interface"]["short_description"]) <= 64:
         errors.append("UI short_description must be 25-64 characters")
@@ -73,6 +76,29 @@ def default_destination():
     return codex_root / "skills" / SKILL.name
 
 
+def package(output):
+    result = check()
+    if not result["ok"]:
+        raise ValueError(json.dumps(result["errors"]))
+    output = output.resolve()
+    if output.is_relative_to(SKILL.resolve()):
+        raise ValueError("Package output must be outside the distributable skill")
+    output.parent.mkdir(parents=True, exist_ok=True)
+    files = skill_files()
+    with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
+        for source in files:
+            archive.write(source, (Path(SKILL.name) / source.relative_to(SKILL)).as_posix())
+    with zipfile.ZipFile(output) as archive:
+        if archive.testzip() is not None:
+            raise ValueError("Package CRC verification failed")
+        for source in files:
+            name = (Path(SKILL.name) / source.relative_to(SKILL)).as_posix()
+            if archive.read(name) != source.read_bytes():
+                raise ValueError(f"Packaged byte mismatch: {name}")
+    return {"ok": True, "output": str(output), "files": len(files), "bytes": output.stat().st_size,
+            "sha256": hashlib.sha256(output.read_bytes()).hexdigest(), "crc_and_bytes_verified": True}
+
+
 def install(destination):
     import yaml
     result = check()
@@ -110,9 +136,11 @@ def main():
     sub.add_parser("check")
     install_parser = sub.add_parser("install")
     install_parser.add_argument("--destination", type=Path, default=default_destination())
+    package_parser = sub.add_parser("package")
+    package_parser.add_argument("--output", type=Path, default=ROOT / "dist" / (SKILL.name + "-" + (ROOT / "VERSION").read_text().strip() + ".zip"))
     args = parser.parse_args()
     try:
-        result = check() if args.command == "check" else install(args.destination)
+        result = check() if args.command == "check" else (install(args.destination) if args.command == "install" else package(args.output))
         print(json.dumps(result, ensure_ascii=True, indent=2))
         return 0 if result["ok"] else 1
     except (OSError, ValueError, KeyError, IndexError) as exc:

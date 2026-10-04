@@ -19,6 +19,8 @@ The importer reads the exact committed YAML via `git show HEAD:data/competitions
 
 Inspect `last-refresh.json`: changes include metadata and link additions/removals. Same-commit refresh has no content differences. An upstream refresh time does not make old post links currently verified. The new upstream commit is not automatically a new method-card version.
 
+Network refresh uses `GH_TOKEN` / `GITHUB_TOKEN` for the GitHub API when present. On anonymous API 403/429 it can reuse an existing authenticated `gh` session without exporting the stored token. If neither path works, use the checkout importer or wait for the API quota to reset; the existing snapshot remains intact.
+
 ## Evidence additions
 
 Read relevant new sources and record their identity/hash/locator, then add or amend cards under the schema. Add counterexamples rather than erasing inconvenient failures. Check whether a new report merely repeats an existing method or materially changes an applicability condition. Avoid verbatim article redistribution; retain original URLs and original paraphrases. Credit author code and review its own license before reuse.
@@ -35,6 +37,7 @@ python -m unittest discover -s tests -v
 python skills/kaggle-solutions-skills/scripts/solutions.py validate
 python scripts/project.py check
 python scripts/project.py install
+python scripts/project.py package
 ```
 
 The install helper copies only the skill folder into the normal Codex skills directory and preserves no private caches or upstream checkout. It rejects an unrelated existing destination. Maintain the project as the source of truth; edits made solely to an installed copy are not project history.

@@ -6,6 +6,7 @@ import argparse
 import hashlib
 import json
 import math
+import os
 import re
 import subprocess
 import tempfile
@@ -13,6 +14,7 @@ from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
+from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 SKILL = Path(__file__).resolve().parents[1]
@@ -142,8 +144,26 @@ def diff_rows(previous, current):
 
 
 def download(url):
-    with urlopen(Request(url, headers={"User-Agent": "kaggle-solutions-skills/0.1"}), timeout=30) as response:
-        raw = response.read(20_000_001)
+    headers = {"User-Agent": "kaggle-solutions-skills/0.1"}
+    api_host = urlparse(url).hostname == "api.github.com"
+    token = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
+    if api_host and token:
+        headers["Authorization"] = "Bearer " + token
+    try:
+        with urlopen(Request(url, headers=headers), timeout=30) as response:
+            raw = response.read(20_000_001)
+    except HTTPError as exc:
+        if not api_host or exc.code not in (403, 429):
+            raise
+        # Shared-IP anonymous limits are common. Reuse an authenticated gh
+        # session without reading or logging its stored credentials.
+        try:
+            response = subprocess.run(["gh", "api", url], capture_output=True, timeout=30)
+        except (OSError, subprocess.SubprocessError):
+            raise ValueError("GitHub API rate-limited; authenticated gh is unavailable. Use refresh --source-dir with an existing checkout.") from None
+        if response.returncode:
+            raise ValueError("GitHub API rate-limited; authenticated gh fallback failed. Use refresh --source-dir or retry when quota resets.") from None
+        raw = response.stdout
     if len(raw) > 20_000_000:
         raise ValueError("Upstream file exceeds 20 MB; inspect before extending importer")
     return raw

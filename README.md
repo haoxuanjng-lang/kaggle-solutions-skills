@@ -45,6 +45,9 @@ python skills/kaggle-solutions-skills/scripts/solutions.py patterns "蒸馏" --j
 python scripts/project.py install
 ```
 
+可分发的 skill ZIP 可通过 `python scripts/project.py package` 生成。导出包包含 skill 与离线知识、
+MIT/上游许可；CRC 和文件字节会校验。项目维护文档与缓存留在源项目。
+
 默认位置为 `$CODEX_HOME/skills/kaggle-solutions-skills`；未设置时为
 `~/.codex/skills/kaggle-solutions-skills`。可通过 `--destination <skill-folder>` 指定其他位置。
 该命令只复制 skill，包含离线知识，不复制缓存、上游 checkout 或私人比赛文件。
