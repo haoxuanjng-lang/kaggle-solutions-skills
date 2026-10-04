@@ -1,5 +1,13 @@
 # 维护与贡献
 
+## README 语言版本
+
+`README.md` 是默认英文首页；`README.zh-CN.md`、`README.ja.md`、
+`README.zh-TW.md` 分别提供简体中文、日语与繁体中文。修改功能介绍时同步四个版本的
+安装命令、版本、知识统计、证据说明与语言切换链接；保留相同的导航 anchor。
+README 的持续维护部分只介绍更新、审核与获取新版，调度、CI 矩阵和本机配置集中在
+`docs/daily-maintenance.md`。文档尚未翻译时保留原链接，不伪装成已有本地化版本。
+
 源目录是 `skills/kaggle-solutions-skills/`。安装目录是发布副本；在源目录修改，再校验和安装。
 一个变更应说明它改变了哪个研究判断或修复了哪个可观察行为。
 

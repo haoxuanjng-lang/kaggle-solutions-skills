@@ -55,4 +55,6 @@ f330f0a41d72fa233ef126294dca0a43d5fa699b0f784a057e58b160e4b0ef5f
 
 [DeepSeek Harness 官方 README](https://github.com/deepseek-ai/deepseek-harness#community-and-support) 指定 GitHub `dsh-plugin` topic 作为插件发现渠道。目前查到的 [1024Store](https://github.com/imsai-sh/awesome-deepseek-harness-plugins) 是社区目录与商店，其静态收录流程不是官方运行认证。
 
-其 [贡献规范](https://github.com/imsai-sh/awesome-deepseek-harness-plugins/blob/main/CONTRIBUTING.md) 允许提交一个 `catalog/plugins/*.json` 条目；通过后自动同步目录。没有 npmjs 发布的插件仍可收录为浏览条目，商店安装命令需要公开 npm registry 的 latest manifest 包含 `dsh.bundle`。GitHub Packages 和公开 Release tarball 的下载能力应与社区商店的安装状态分别说明。
+其 [贡献规范](https://github.com/imsai-sh/awesome-deepseek-harness-plugins/blob/main/CONTRIBUTING.md) 允许提交一个 `catalog/plugins/*.json` 条目；通过后自动同步目录。本项目的 [收录 PR #567](https://github.com/imsai-sh/awesome-deepseek-harness-plugins/pull/567) 已合并，目录同步运行成功，网站公开 API 已返回本项目条目。
+
+提交时按目录规范申请无需 npmjs 包的浏览收录。目前网站 API 另外提供 `github:haoxuanjng-lang/kaggle-solutions-skills` 源码安装入口，并明确标为 `verification: unknown` / `code: not_checked`；该源码安装途径未在本次本机验证中执行。请使用已验证的公开 Release tarball 安装。此收录属于社区目录，不能表述为 DeepSeek 官方认证或 npmjs 发布。

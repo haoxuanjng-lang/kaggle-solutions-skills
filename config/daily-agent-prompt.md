@@ -25,7 +25,11 @@ local experiments and official competition scores as different evidence.
 For DeepSeek Harness, verify the current official plugin APIs and retain tested
 compatibility versions. Real competition examples must point to original
 competition/source material and make their historical/research status clear.
-Update README visuals and navigation when capabilities change. Keep portable
+Update README visuals and navigation when capabilities change. Keep the English
+homepage and Simplified Chinese, Japanese and Traditional Chinese READMEs in
+sync, including versioned commands, counts and evidence boundaries. Keep the
+README maintenance section brief; scheduling and local setup belong in the
+maintenance guide. Keep portable
 knowledge and the npm plugin complete and installation paths usable.
 
 Run project checks, relevant Python/npm tests and scenario smoke checks for your

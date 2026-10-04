@@ -13,6 +13,20 @@ Date: 2026-10-04, Asia/Shanghai. Publication follows local full-host validation.
 | Independent research use | [OTTO role workflow](examples/otto-team-run.md) completed, including two independent parallel evidence/validation agents; clarified result contract rejected malformed results |
 | Daily deterministic checks | Actual local maintenance report passed all 15 checks, including planning and validating all five historical scenarios |
 | Local daily AI maintenance | Windows task registered for 09:00 Asia/Shanghai; first scheduled execution is 2026-10-05; read-only live Codex smoke passed |
+| Cross-platform CI | [All six jobs passed](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/runs/37211953083), including official-runtime tests on Windows and Ubuntu |
+| Cloud daily maintenance | [Manual run passed](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/runs/37211968245); five scenario plans and validators succeeded |
+| Cloud upstream review | [Manual run passed](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/runs/37211973547); upstream unchanged, no PR created |
+| Public publication | [Publishing succeeded](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/runs/37212052475); GitHub Packages version `0.2.0` confirmed public |
+| Release assets | npm tarball 361,090 bytes; portable ZIP 356,100 bytes; checksums attached; all assets uploaded |
+| Public installation | Public Release URL `npx` installed 22 files into a fresh directory; installed `stats`, OTTO plan generation and validation succeeded |
+| Community directory | [1024Store catalog PR merged](https://github.com/imsai-sh/awesome-deepseek-harness-plugins/pull/567), static/merge/sync checks passed, and [live listing](https://deepseek1024.com/plugins/haoxuanjng-lang/kaggle-solutions-skills) was visible in the browser; this is community discovery, not official certification |
+
+Release source: `e2978db4d3148e0e8ffe1f92a0c530a2783d4f54`.
+Published npm tarball SHA256:
+`08bf118ff3ec14c126547913cd4ebc8155fe9ff3c9c64d954000e681c1c22323`.
+Portable ZIP SHA256:
+`58c028bd1d3d7ad6d6f71d3e9721aa87fbb2fe0048951eaf0daf3534335383c1`.
+Later documentation changes do not replace these immutable published packages.
 
 The Harness test used an isolated empty credential file to avoid an existing
 old-host credential-format incompatibility. Existing credentials and profiles
