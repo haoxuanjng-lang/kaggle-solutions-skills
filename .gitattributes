@@ -1,0 +1,2 @@
+# Preserve snapshot bytes/checksums across Windows and Linux checkouts.
+* text eol=lf
