@@ -50,6 +50,8 @@ npx --yes --package=https://github.com/haoxuanjng-lang/kaggle-solutions-skills/r
 
 📦 [GitHub Packages](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/packages) · [下载 npm 安装包](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.1.1/haoxuanjng-lang-kaggle-solutions-skills-0.1.1.tgz) · [下载 Skill ZIP](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.1.1/kaggle-solutions-skills-0.1.1.zip)
 
+完整安装与后续发布说明：[Distribution](docs/distribution.md)。
+
 <details>
 <summary><strong>从源码安装 / 使用 GitHub npm registry</strong></summary>
 

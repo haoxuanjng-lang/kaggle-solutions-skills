@@ -1,4 +1,34 @@
-# v0.1.0 verification record
+# Verification records
+
+## v0.1.1 — Public distribution and README
+
+Date: 2026-10-04, Asia/Shanghai. Package source commit:
+`2fa26616357acaeaa58b4eca0cce62f971d3d519`; publishing workflow fix:
+`4146220d5137b6b1cb2ff7600e70f293a9b29f7e` (no distributed-file changes).
+
+| Check | Observed result |
+|---|---|
+| Repository visibility | GitHub API reports `PUBLIC`; logged-out browser can load the repository |
+| README rendering | All 8 images/badges loaded on GitHub; all 4 custom navigation anchors have targets; banner and workflow screenshots visually checked |
+| Local validation | Project/knowledge checks, 21 Python tests and 4 npm installer tests passed |
+| Cross-platform CI | [All 6 jobs passed](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/runs/37187600183): 4 Python jobs and npm installer tests on Windows/Ubuntu |
+| npm publication | [Publish workflow succeeded](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/runs/37187600956); GitHub API reports package visibility `public` |
+| Built-package installation | Workflow installed the actual `.tgz` and queried its knowledge; local public-URL `npx` installation also succeeded, copying 18 skill files |
+| Release assets | `.tgz` (346,368 bytes), ZIP (345,807 bytes), `SHA256SUMS.txt`; GitHub reports all assets `uploaded` |
+| Public npm tarball digest | SHA256 `cc671c28c7624a2a6b3ff396dee45c395f0df6467843bdaafad21e9f9e7859b8` |
+| Public ZIP digest | SHA256 `a0775f498e7ef514805b2433e69086a1d567bdb13553787a6dc3d3da710e4c34` |
+
+The first publish attempt failed because npm interpreted an unprefixed local
+tarball path as a GitHub repository shorthand. Explicit `./dist/...` paths and
+an actual tarball installation step fixed the publishing workflow. The package
+was then published successfully. GitHub npm registry installation needs
+authentication; public Release downloads provide the credential-free path.
+
+These checks verify distribution and research-tool behavior. The archived
+solutions and method-card transfer hypotheses remain unvalidated by competition
+training or official scored submissions in this project.
+
+## v0.1.0 — Initial skill
 
 Date: 2026-10-04, Asia/Shanghai. Code/skill baseline:
 `57d38b57444eba3ba003349e90474b6125d7ff2e`.
