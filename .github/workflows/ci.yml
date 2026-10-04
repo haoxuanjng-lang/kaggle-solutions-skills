@@ -18,6 +18,11 @@ jobs:
         with:
           node-version: "24"
       - run: npm test
+      - name: Verify the native DeepSeek Harness contract
+        run: npm install --prefix cache/deepseek-runtime --ignore-scripts --no-audit --no-fund --package-lock=false @deepseek-ai/dsh-tools@0.2.0-rc.2 @deepseek-ai/cordis@4.0.4
+      - run: npm test
+        env:
+          DEEPSEEK_RUNTIME_NODE_MODULES: ${{ github.workspace }}/cache/deepseek-runtime/node_modules
       - run: npm pack --dry-run
   check:
     strategy:

@@ -2,7 +2,7 @@
 name: kaggle-solutions-skills
 description: Research Kaggle solution writeups and author code using a pinned competition archive; retrieve analogous tasks, extract evidence-backed decisions, propose transferable experiments, and maintain the solution knowledge base. Use for Kaggle 解法检索、冠军方案分析、跨比赛方法迁移、赛后知识沉淀 and archive maintenance. Scored competition execution remains with the chosen competition workflow.
 metadata:
-  version: "0.1.1"
+  version: "0.2.0"
 ---
 
 # Kaggle Solutions Skills
@@ -21,6 +21,7 @@ metadata:
 | 开始训练、调参、Kaggle 运行与计分提交 | 将研究结果交给用户选定的比赛 workflow；已有 `agentic-kaggle-skill` 时按其执行，不叠加第二套门槛 | 先完成研究交接，再读取该执行 skill |
 | 将自己的比赛经验沉淀为知识 | 记录实际运行证据、负结果与适用边界，更新方法卡 | [knowledge-schema.md](references/knowledge-schema.md) |
 | 更新或维护本项目 | 固定上游版本，审核差异，验证，再更新安装副本 | [maintenance.md](references/maintenance.md) |
+| 多 Agent 研究与真实比赛场景 | 生成角色任务和依赖图，由当前宿主实际分派；保留不同 Agent 的证据与分歧 | [multi-agent-research.md](references/multi-agent-research.md) |
 
 ## 可用工具
 
@@ -33,6 +34,9 @@ python <skill-dir>/scripts/solutions.py search "医学影像" --modality vision 
 python <skill-dir>/scripts/solutions.py show otto-recommender-system --top-rank 5 --solutions-limit 10 --json
 python <skill-dir>/scripts/solutions.py patterns "蒸馏" --json
 python <skill-dir>/scripts/fetch_source.py https://www.kaggle.com/competitions/birdclef-2024/discussion/512197 --cache cache/sources
+python <skill-dir>/scripts/research_team.py scenarios --json
+python <skill-dir>/scripts/research_team.py plan --scenario otto --output workspaces/otto-research
+python <skill-dir>/scripts/research_team.py validate workspaces/otto-research --results
 ```
 
 检索使用词法相关性，支持少量中英检索词映射。模态标签是标题/描述的启发式提示；需要严格模态时用官方数据说明核实。方法名检索只对已提炼卡片建立关联，不能据此声称所有检索结果用过该方法。`--top-rank` 按档案里的数字排名过滤，非数字 `all solutions` 不算冠军。
@@ -50,6 +54,11 @@ python <skill-dir>/scripts/fetch_source.py https://www.kaggle.com/competitions/b
 7. **积累真实结果。** 执行 workflow 产生证据后，记录支持与反例、资源成本和数据条件。一次比赛的成功是一个案例，不能直接变成普遍规律。
 
 ## 证据与来源
+
+多 Agent 任务包含 scout、evidence、validation、transfer 和 reviewer；独立 evidence 与 validation 可以并行。
+需要协作研究时，读取 multi-agent reference，并使用宿主已有的子 Agent 能力分派真实任务。
+生成任务包与通过计划校验只证明交接结构，不表示 Agent 已运行。完成状态以实际输出和来源检查为准。
+官方计分执行仍交给用户选定的比赛 workflow；不把研究团队变成第二套提交流程。
 
 - `linked_unread`：只有索引中的链接/标题/排名。
 - `source_read`：已取得并阅读相关正文或代码，记录 URL、读取时间、正文 hash/commit 和具体位置。

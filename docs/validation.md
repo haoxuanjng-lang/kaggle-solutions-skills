@@ -1,5 +1,25 @@
 # Verification records
 
+## v0.2.0 — Native Harness plugin and daily research maintenance
+
+Date: 2026-10-04, Asia/Shanghai. Publication follows local full-host validation.
+
+| Check | Observed result |
+|---|---|
+| Local behavior | 31 Python tests passed; 10 npm tests passed with the official runtime installed; project and knowledge consistency checks passed |
+| Portable skill | Skill Creator entrypoint validation passed; 22 allowlisted files |
+| Actual local Harness | Installed unpublished tarball into a dedicated profile of the existing `dsh@0.1.0-rc.6`; full Web host started; all six host tool executions succeeded; plugin UI showed mounted and enabled |
+| Official new runtime | `dsh-tools@0.2.0-rc.2` / `cordis@4.0.4`: registration, execution, errors and disposal passed |
+| Independent research use | [OTTO role workflow](examples/otto-team-run.md) completed, including two independent parallel evidence/validation agents; clarified result contract rejected malformed results |
+| Daily deterministic checks | Actual local maintenance report passed all 15 checks, including planning and validating all five historical scenarios |
+| Local daily AI maintenance | Windows task registered for 09:00 Asia/Shanghai; first scheduled execution is 2026-10-05; read-only live Codex smoke passed |
+
+The Harness test used an isolated empty credential file to avoid an existing
+old-host credential-format incompatibility. Existing credentials and profiles
+were preserved. No API-key model conversation, competition training or scored
+submission was tested. The old UI displays the module name rather than the
+exported localized metadata. See [full host evidence](harness-local-validation.md).
+
 ## v0.1.1 — Public distribution and README
 
 Date: 2026-10-04, Asia/Shanghai. Package source commit:

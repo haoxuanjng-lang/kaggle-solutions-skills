@@ -13,7 +13,7 @@ GitHub Packages, not npmjs.org:
 Node.js 20+ installs the package; Python 3.10+ runs the research scripts.
 
 ```sh
-npx --yes --package=https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.1.1/haoxuanjng-lang-kaggle-solutions-skills-0.1.1.tgz kaggle-solutions-skills install
+npx --yes --package=https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.0/haoxuanjng-lang-kaggle-solutions-skills-0.2.0.tgz kaggle-solutions-skills install
 ```
 
 Use `--destination <skill-folder>` for another location. An existing destination
@@ -24,7 +24,7 @@ to use the installed skill.
 The default location is `$CODEX_HOME/skills/kaggle-solutions-skills`, or
 `~/.codex/skills/kaggle-solutions-skills` when `CODEX_HOME` is unset.
 
-The Release ZIP contains the same 18 portable skill files. Extract it into the
+The Release ZIP contains the same 22 portable skill files. Extract it into the
 skills directory so `kaggle-solutions-skills/SKILL.md` is directly inside it.
 Check downloads against the release's `SHA256SUMS.txt` when needed.
 
@@ -35,7 +35,7 @@ Follow the [official authentication instructions](https://docs.github.com/en/pac
 After login:
 
 ```sh
-npx --yes --registry=https://npm.pkg.github.com @haoxuanjng-lang/kaggle-solutions-skills@0.1.1 install
+npx --yes --registry=https://npm.pkg.github.com @haoxuanjng-lang/kaggle-solutions-skills@0.2.0 install
 ```
 
 The public Release command above avoids this registry requirement.

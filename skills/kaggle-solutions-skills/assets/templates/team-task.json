@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "role": "replace-with-role",
+  "status": "pending",
+  "findings": [
+    {
+      "statement": "Replace this placeholder with a narrow observation or inference.",
+      "claim_type": "maintainer_inference",
+      "source_id": "replace-with-packet-source-id",
+      "locator": "replace-with-specific-source-location"
+    }
+  ],
+  "unknowns": [],
+  "proposed_experiments": [],
+  "disagreements": [],
+  "handoff": "Replace with conclusions and limits for the next role."
+}

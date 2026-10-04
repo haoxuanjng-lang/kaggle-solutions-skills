@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="352" viewBox="0 0 1280 352" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">Five-agent research team</title>
+  <desc id="desc">Scout hands context to evidence and validation in parallel. Both feed transfer. Reviewer reconciles all outputs and preserves uncertainty. Actual dispatch is owned by the host.</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M1 1L7 4L1 7" stroke="#64748b" stroke-width="1.5"/></marker></defs>
+  <rect x="1" y="1" width="1278" height="350" rx="18" fill="#f8fafc" stroke="#e2e8f0"/>
+  <g font-family="Segoe UI,Arial,sans-serif"><text x="35" y="39" fill="#0369a1" font-size="13" font-weight="600" letter-spacing="2">RESEARCH TEAM / HOST-DISPATCHED</text><text x="1245" y="39" text-anchor="end" fill="#64748b" font-size="13">Evidence travels with every handoff</text></g>
+  <g stroke="#64748b" stroke-width="1.8" marker-end="url(#arrow)"><path d="M245 181H282V113H326"/><path d="M282 181V252H326"/><path d="M545 113H596V181H638"/><path d="M545 252H596V181"/><path d="M855 181H962"/></g>
+  <path d="M143 222V320H1074V224" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 6" marker-end="url(#arrow)"/>
+  <g>
+    <rect x="35" y="139" width="210" height="85" rx="12" fill="#e0f2fe" stroke="#bae6fd"/>
+    <rect x="335" y="71" width="210" height="85" rx="12" fill="#ede9fe" stroke="#ddd6fe"/>
+    <rect x="335" y="209" width="210" height="85" rx="12" fill="#ede9fe" stroke="#ddd6fe"/>
+    <rect x="648" y="139" width="207" height="85" rx="12" fill="#e0f2fe" stroke="#bae6fd"/>
+    <rect x="972" y="139" width="273" height="85" rx="12" fill="#ccfbf1" stroke="#99f6e4"/>
+  </g>
+  <g font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#0f172a"><text x="53" y="174">Scout</text><text x="353" y="106">Evidence</text><text x="353" y="244">Validation</text><text x="666" y="174">Transfer</text><text x="990" y="174">Reviewer</text></g>
+  <g font-family="Segoe UI,Arial,sans-serif" font-size="14" fill="#475569"><text x="53" y="201">Profile + unknowns</text><text x="353" y="133">Sources + locators</text><text x="353" y="271">Splits + leakage</text><text x="666" y="201">Conditions + experiments</text><text x="990" y="201">Brief + unresolved disagreements</text></g>
+  <text x="440" y="185" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="11" font-weight="600" letter-spacing="2" fill="#7c3aed">PARALLEL</text>
+  <rect x="780" y="306" width="286" height="26" rx="13" fill="#f8fafc"/><text x="923" y="323" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#64748b">Reviewer receives every predecessor output</text>
+</svg>

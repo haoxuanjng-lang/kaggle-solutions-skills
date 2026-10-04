@@ -26,6 +26,10 @@ jobs:
       - run: python scripts/project.py check
       - run: python -m unittest discover -s tests -v
       - run: npm test
+      - run: npm install --prefix cache/deepseek-runtime --ignore-scripts --no-audit --no-fund --package-lock=false @deepseek-ai/dsh-tools@0.2.0-rc.2 @deepseek-ai/cordis@4.0.4
+      - run: npm test
+        env:
+          DEEPSEEK_RUNTIME_NODE_MODULES: ${{ github.workspace }}/cache/deepseek-runtime/node_modules
       - name: Verify release version
         env:
           GH_TOKEN: ${{ github.token }}
@@ -50,6 +54,9 @@ jobs:
         run: |
           npm exec --yes --package="./dist/haoxuanjng-lang-kaggle-solutions-skills-$PACKAGE_VERSION.tgz" -- kaggle-solutions-skills install --destination "$RUNNER_TEMP/packaged-skill"
           python "$RUNNER_TEMP/packaged-skill/scripts/solutions.py" stats
+          python "$RUNNER_TEMP/packaged-skill/scripts/research_team.py" scenarios --json
+          python "$RUNNER_TEMP/packaged-skill/scripts/research_team.py" plan --scenario otto --output "$RUNNER_TEMP/packaged-otto-plan"
+          python "$RUNNER_TEMP/packaged-skill/scripts/research_team.py" validate "$RUNNER_TEMP/packaged-otto-plan"
       - name: Publish npm package to GitHub Packages
         env:
           NODE_AUTH_TOKEN: ${{ github.token }}

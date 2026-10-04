@@ -1,0 +1,4 @@
+- insert:
+    - id: kaggle-solutions-research
+      name: '@haoxuanjng-lang/kaggle-solutions-skills/deepseek-harness'
+      config: {}

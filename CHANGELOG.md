@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0 — 2026-10-04
+
+- Added a native DeepSeek Harness plugin with six research tools, including team-plan generation, tested against its official tool runtime.
+- Added five provenance-linked competition scenarios and a five-role research workflow with dependency graphs and result validation.
+- Scheduled daily cloud integrity/scenario checks and upstream-review maintenance at 09:00 Asia/Shanghai.
+- Added an optional Windows daily Codex development runner with isolated worktrees and local execution logs.
+- Updated README navigation, architecture visuals and plugin/workflow quick starts; preserved research versus official-score boundaries.
+
 ## 0.1.1 — 2026-10-04
 
 - Added a dependency-free npm installer for the complete offline Codex skill.

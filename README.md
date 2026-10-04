@@ -6,21 +6,26 @@
 
 <p align="center">
   <strong>从历史解法中找到思路，把真实证据积累成可复用的 Skill。</strong><br>
-  有来源 · 可检索 · 可迁移 · 持续维护
+  离线知识库 · DeepSeek Harness 原生插件 · 多 Agent 研究 · 每日维护
 </p>
 
 <p align="center">
-  <a href="https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/tag/v0.1.1"><img src="https://img.shields.io/badge/version-0.1.1-2563eb?style=flat-square" alt="Version 0.1.1"></a>
+  <a href="https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/tag/v0.2.0"><img src="https://img.shields.io/badge/version-0.2.0-2563eb?style=flat-square" alt="Version 0.2.0"></a>
   <a href="#quick-start"><img src="https://img.shields.io/badge/Python-3.10%2B-3776ab?style=flat-square&amp;logo=python&amp;logoColor=white" alt="Python 3.10 or newer"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-10b981?style=flat-square" alt="MIT license"></a>
   <a href="https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/workflows/ci.yml"><img src="https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/workflows/ci.yml/badge.svg" alt="Skill checks CI"></a>
   <a href="#coverage"><img src="https://img.shields.io/badge/archive-717%20competitions-0ea5e9?style=flat-square" alt="Snapshot: 717 competitions"></a>
   <a href="#coverage"><img src="https://img.shields.io/badge/reviewed-21%20method%20cards-8b5cf6?style=flat-square" alt="Snapshot: 21 reviewed method cards"></a>
+  <a href="#deepseek"><img src="https://img.shields.io/badge/DeepSeek%20Harness-native%20plugin-6366f1?style=flat-square" alt="DeepSeek Harness native plugin"></a>
+  <a href="#scenarios"><img src="https://img.shields.io/badge/research-5%20scenarios-0d9488?style=flat-square" alt="Five historical competition research scenarios"></a>
 </p>
 
 <p align="center">
   <a href="#quick-start">快速开始</a> ·
   <a href="#workflow">工作流程</a> ·
+  <a href="#deepseek">DeepSeek 插件</a> ·
+  <a href="#team">Agent 协作</a> ·
+  <a href="#scenarios">比赛场景</a> ·
   <a href="#coverage">知识覆盖</a> ·
   <a href="docs/examples/rogii-research-brief.md">研究示例</a> ·
   <a href="#maintenance">长期维护</a>
@@ -28,11 +33,13 @@
 
 ---
 
-以 [faridrashidi/kaggle-solutions](https://github.com/faridrashidi/kaggle-solutions) 为发现索引，进一步读取作者解法正文与代码，提炼方法的**适用条件、失败风险和最小实验**。面向 Agent，也适合研究者直接检索和阅读。
+Kaggle 解法散落在论坛、Notebook 和作者仓库里。找到一个冠军链接之后，还需要判断验证方式是否可靠、哪些决定适合当前数据、几个 Agent 的研究如何合并，以及下一场比赛怎样复用这些经验。
 
-| 🔎 找到相关解法 | 🧩 提炼可迁移方法 | 🌱 积累长期知识 |
+本项目以 [faridrashidi/kaggle-solutions](https://github.com/faridrashidi/kaggle-solutions) 为发现索引，把已读作者资料整理成带来源与适用条件的方法卡，并让 Codex 与 DeepSeek Harness 使用同一知识库，交付**相似解法、验证风险和可比较的最小实验**。
+
+| 🔎 找到相关解法 | 🧩 用 Agent 协作研究 | 🌱 积累长期知识 |
 | :--- | :--- | :--- |
-| 按关键词与模态检索比赛，定位作者原文和排名线索。 | 保留证据与前提，把历史方案转成目标比赛的实验假设。 | 记录真实实验与反例，审核上游更新，维护可分发的 Skill。 |
+| 按关键词与模态检索比赛；Codex Skill 与 Harness 原生工具复用同一知识库。 | 侦察、证据、验证、迁移、合成五个角色，传递来源与未知项，保留分歧。 | 每日云端检查和上游审核；本机 Codex 持续开发、验证并更新可分发版本。 |
 
 <a id="quick-start"></a>
 
@@ -43,12 +50,12 @@
 需要 **Node.js 20+**。从公开 Release 安装完整 Skill，无需 GitHub token：
 
 ```powershell
-npx --yes --package=https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.1.1/haoxuanjng-lang-kaggle-solutions-skills-0.1.1.tgz kaggle-solutions-skills install
+npx --yes --package=https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.0/haoxuanjng-lang-kaggle-solutions-skills-0.2.0.tgz kaggle-solutions-skills install
 ```
 
 已有安装可追加 `--force` 更新；`--destination <skill-folder>` 可指定目录。
 
-📦 [GitHub Packages](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/packages) · [下载 npm 安装包](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.1.1/haoxuanjng-lang-kaggle-solutions-skills-0.1.1.tgz) · [下载 Skill ZIP](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.1.1/kaggle-solutions-skills-0.1.1.zip)
+📦 [GitHub Packages](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/packages) · [下载 npm 安装包](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.0/haoxuanjng-lang-kaggle-solutions-skills-0.2.0.tgz) · [下载 Skill ZIP](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.0/kaggle-solutions-skills-0.2.0.zip)
 
 完整安装与后续发布说明：[Distribution](docs/distribution.md)。
 
@@ -67,7 +74,7 @@ python scripts/project.py install
 GitHub Packages 的 npm 包为 `@haoxuanjng-lang/kaggle-solutions-skills`，发布在 `npm.pkg.github.com`。按 [GitHub 官方说明](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry) 完成 registry 认证后：
 
 ```powershell
-npx --yes --registry=https://npm.pkg.github.com @haoxuanjng-lang/kaggle-solutions-skills@0.1.1 install
+npx --yes --registry=https://npm.pkg.github.com @haoxuanjng-lang/kaggle-solutions-skills@0.2.0 install
 ```
 
 普通下载与安装可直接使用上方 Release 命令，无需配置 registry。Python 3.10+ 用于运行 Skill 内的研究工具；Node.js 只负责安装文件。
@@ -139,6 +146,77 @@ python scripts/project.py package
 
 > **证据边界**：档案链接、作者报告、迁移假设、本地实验和官方分数分别记录。历史排名可以帮助发现解法；目标比赛中的收益需要实际验证。
 
+<a id="deepseek"></a>
+
+## 🐋 DeepSeek Harness 原生插件
+
+### 当前痛点与插件能帮你做的事
+
+| 当前痛点 | 在 Harness 中怎样解决 | 交付什么 |
+| :--- | :--- | :--- |
+| 找到很多方案，难以判断与当前问题是否相似 | 按问题、模态和历史比赛检索，并查看对应解法线索 | 相似比赛、作者来源和待核实项 |
+| 冠军方案里有很多技巧，迁移时容易忽略验证与数据边界 | 查询条件化方法卡，让证据 Agent 与验证 Agent 分别研究 | 适用条件、泄漏风险、失败条件与最小对照 |
+| 多 Agent 重复搜索、上下文丢失，汇总时混淆作者报告与实际实验 | 生成独立任务包、依赖图和来源上下文，由 reviewer 合成 | 可交接的研究结果、未解决分歧与实验建议 |
+
+可以让 Harness 为新比赛找相似问题、比较某场比赛的解法、组织研究团队，或将实际实验反馈沉淀成知识。离线检索与任务生成直接可用；新的模型分析沿用你的 Harness 配置，实验与官方成绩由比赛执行 workflow 产生。
+
+同一份 npm 包包含 Cordis 插件、bundle patch、双语元数据和工具图标。已在本机 **Harness `0.1.0-rc.6` 完整 Web host** 中成功调用六个工具，插件管理页显示已挂载、已启用；同时用官方 **`0.2.0-rc.2` 工具运行时** 验证注册、调用、错误传播与卸载。见 [本机验证记录与截图](docs/harness-local-validation.md)。
+
+从 [Release](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/tag/v0.2.0) 下载 `.tgz` 后，在文件所在目录执行：
+
+```bash
+npx @deepseek-ai/dsh@0.2.0-rc.2 plugin --profile kaggle add ./haoxuanjng-lang-kaggle-solutions-skills-0.2.0.tgz
+npx @deepseek-ai/dsh@0.2.0-rc.2 --profile kaggle --dump-config
+```
+
+| 检索工具 | 证据工具 | 协作工具 |
+| :--- | :--- | :--- |
+| `kaggle_solutions_search` | `kaggle_solutions_show` | `kaggle_research_scenarios` |
+| `kaggle_solutions_stats` | `kaggle_solutions_patterns` | `kaggle_research_plan` |
+
+离线工具无需额外 API key；模型对话沿用 Harness 自身配置。插件生成任务包，实际分派使用宿主的 subagent/workflow 能力。官方 Harness 仍处于 developer preview，兼容范围和 workspace 配置见 [插件指南](docs/deepseek-harness.md)。
+
+<a id="team"></a>
+
+## 🤖 多 Agent 协作研究
+
+![五角色研究团队的依赖图与证据交接](docs/assets/agent-team.svg)
+
+```powershell
+python skills/kaggle-solutions-skills/scripts/research_team.py plan --scenario otto --output workspaces/otto-research
+python skills/kaggle-solutions-skills/scripts/research_team.py validate workspaces/otto-research
+```
+
+每个角色拿到独立任务、固定来源上下文、结果契约和前置结果路径。证据阅读与验证审查可以并行；迁移分析等待二者完成，最后由 reviewer 汇总可追溯发现、分歧和最小实验。
+
+在 Codex 中可以直接提出：
+
+```text
+$kaggle-solutions-skills 用多 Agent 分析 OTTO 的召回与排序方案，审查验证泄漏，给出最小迁移实验。缺失的目标指标保持未知。
+```
+
+**任务包生成 ≠ Agent 已执行。** 宿主实际运行后，通过 `validate <研究目录> --results` 检查角色结果与来源关联。格式通过仍需要研究者判断事实是否得到来源支持。[协作流程](skills/kaggle-solutions-skills/references/multi-agent-research.md) · [实际研究使用说明](docs/examples/team-research.md)
+
+已完成一次 [OTTO 真实研究试用](docs/examples/otto-team-run.md)：五个角色按依赖完成研究，其中 evidence / validation 由独立 Agent 并行执行，审读缓存作者正文后输出迁移实验简报。该记录验证研究流程，尚未验证比赛收益。
+
+<a id="scenarios"></a>
+
+## 🏁 真实比赛研究场景
+
+| 场景 ID | 原比赛 | 研究重点 | 最小实验方向 |
+| :--- | :--- | :--- | :--- |
+| `otto` | [OTTO](https://www.kaggle.com/competitions/otto-recommender-system) | Session 边界、候选召回与排序 | 固定候选生成，单独比较排序阶段 |
+| `birdclef-2024` | [BirdCLEF 2024](https://www.kaggle.com/competitions/birdclef-2024) | 音频上下文、来源质量、伪标签隔离 | 相同 split 和预算下改变一种上下文或伪标签策略 |
+| `rogii` | [ROGII](https://www.kaggle.com/competitions/rogii-wellbore-geology-prediction) | 跨井验证、对齐与可靠性路由 | 固定基线，比较单项对齐或路由变化 |
+| `amex` | [American Express](https://www.kaggle.com/competitions/amex-default-prediction) | 客户隔离、历史特征与指标对齐 | 保留客户 split，新增一组历史统计特征 |
+| `m5` | [M5](https://www.kaggle.com/competitions/m5-forecasting-accuracy) | 预测窗口、递归推理与层级指标 | 相同窗口与训练成本下比较直接/递归预测 |
+
+五个场景关联真实比赛、已记录阅读的作者资料和方法卡，用于研究与协作回归检查。它们是**历史解法研究场景**，没有在本项目中复现冠军训练方案或产生新的官方分数。
+
+```powershell
+python skills/kaggle-solutions-skills/scripts/research_team.py scenarios --json
+```
+
 <a id="coverage"></a>
 
 ## 📚 知识覆盖
@@ -186,10 +264,14 @@ python skills/kaggle-solutions-skills/scripts/fetch_source.py https://www.kaggle
 | 维护机制 | 当前行为 |
 | :--- | :--- |
 | [持续集成](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/workflows/ci.yml) | 检查结构、来源关联、索引一致性和脚本行为；覆盖 Windows / Ubuntu 与 Python 3.11 / 3.13。 |
-| [上游更新检查](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/workflows/sync-upstream.yml) | 每周一北京时间 **09:00** 检查，有新 commit 时生成 review PR；支持手动运行。 |
+| [每日健康检查](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/workflows/daily-maintenance.yml) | 每天北京时间 **09:00** 检查工具、安装器和五个比赛场景；保留检查报告。 |
+| [上游更新检查](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/workflows/sync-upstream.yml) | 每天北京时间 **09:00** 检查，有新 commit 时生成 review PR；支持手动运行。 |
+| 本机 Codex 开发维护 | 可注册每天 **09:00** 的 Windows 任务，使用独立 worktree 开发改进并保留本地日志；需开机、用户登录、网络和可用认证/额度。 |
 | 人工知识维护 | 阅读正文与代码 → 条件化方法卡 → 目标比赛假设 → 实际实验 → 补充反例或扩大适用范围。 |
 
 同步 PR 不自动合并，不覆盖人工方法卡，也不更新本地安装副本。定时运行受 GitHub Actions 配额、仓库权限与服务调度影响。
+
+云端健康检查不调用模型，也不声称自动开发功能；本机 AI 开发的成果按实际 PR、测试与发布记录确认。[每日维护配置与日志](docs/daily-maintenance.md)
 
 <details>
 <summary><strong>维护命令</strong></summary>
@@ -213,6 +295,8 @@ kaggle-solutions-skills/
 │   ├── references/                  # 知识、来源与维护约定
 │   └── scripts/                     # 检索、校验与正文读取
 ├── docs/                           # 示例、路线与验证记录
+├── integrations/deepseek-harness/   # 原生插件、bundle 与双语资源
+├── config/daily-agent-prompt.md     # 已授权的每日项目维护说明
 ├── scripts/project.py              # 项目检查、安装与打包
 ├── tests/                          # 脚本行为检查
 └── .github/workflows/               # CI 与上游更新检查

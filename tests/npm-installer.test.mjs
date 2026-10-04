@@ -20,17 +20,21 @@ test('installation includes the complete knowledge and original source bytes', (
   const destination = join(folder, 'skill');
   const result = run(['install', '--destination', destination]);
   assert.equal(result.status, 0, result.stderr);
+  let compared = 0;
   function compare(relative = '') {
     const source = join(root, 'skills', 'kaggle-solutions-skills', relative);
     for (const entry of readdirSync(source, { withFileTypes: true })) {
       if (entry.name === '__pycache__' || entry.name.endsWith('.pyc')) continue;
       const path = join(relative, entry.name);
       if (entry.isDirectory()) compare(path);
-      else assert.deepEqual(readFileSync(join(destination, path)), readFileSync(join(source, entry.name)));
+      else {
+        assert.deepEqual(readFileSync(join(destination, path)), readFileSync(join(source, entry.name)));
+        compared++;
+      }
     }
   }
   compare();
-  assert.match(result.stdout, /"files": 18/);
+  assert.equal(JSON.parse(result.stdout.slice(0, result.stdout.indexOf('\nOpen a new'))).files, compared);
 }));
 
 test('existing user files are preserved unless update is explicitly selected', () => withTemp(folder => {

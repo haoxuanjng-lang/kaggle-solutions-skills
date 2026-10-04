@@ -34,6 +34,7 @@ From the maintained project root, run:
 ```text
 python -m pip install -e .
 python -m unittest discover -s tests -v
+npm test
 python skills/kaggle-solutions-skills/scripts/solutions.py validate
 python scripts/project.py check
 python scripts/project.py install
@@ -42,12 +43,12 @@ python scripts/project.py package
 
 The install helper copies only the skill folder into the normal Codex skills directory and preserves no private caches or upstream checkout. It rejects an unrelated existing destination. Maintain the project as the source of truth; edits made solely to an installed copy are not project history.
 
-Update `VERSION`, `pyproject.toml`, skill frontmatter `metadata.version` and changelog for reviewed behavior/card changes; project checks require the versions to agree. An archive-only refresh can retain the skill version because provenance has its own commit identity. Do not claim benchmark gains from structural validation or unit tests.
+Update `VERSION`, `package.json`, `pyproject.toml`, skill frontmatter `metadata.version` and changelog for reviewed behavior/card changes; project checks require the versions to agree. An archive-only refresh can retain the skill version because provenance has its own commit identity. Do not claim benchmark gains from structural validation or unit tests.
 
 ## GitHub maintenance
 
-The project includes CI for pull requests/pushes and a weekly upstream-sync workflow. Scheduled sync checks for new upstream commits, refreshes/validates/tests, then creates a review PR when content changes. It does not automatically merge or change the installed skill. Failed checks remain visible in Actions.
+The project includes CI for pull requests/pushes, daily health/scenario checks, and daily upstream-sync at 09:00 Asia/Shanghai. Scheduled sync checks for new upstream commits, refreshes/validates/tests, then creates a review PR when content changes. It does not automatically merge or change the installed skill. Failed checks remain visible in Actions. The optional local Codex daily runner develops project improvements in isolated worktrees; its actual outcomes and authentication failures are logged separately from cloud health checks.
 
-The workflow needs repository Actions permissions allowing its token to create pull requests. If that setting is unavailable, the scheduled job still reports the failure; run the same refresh locally and submit a normal PR. A private repository's Actions quotas/settings apply. This workflow only maintains the archive; research and method-card additions remain evidence-reviewed work.
+The workflow needs repository Actions permissions allowing its token to create pull requests. If that setting is unavailable, the scheduled job still reports the failure; run the same refresh locally and submit a normal PR. The repository is public; GitHub scheduling delays, inactivity disablement and service permissions still apply. This workflow only maintains the archive; research and method-card additions remain evidence-reviewed work.
 
 See the project roadmap for next improvements. Do not turn a future milestone into an extra prerequisite for today's ordinary research.

@@ -1,0 +1,52 @@
+[
+  {
+    "id": "otto",
+    "competition": "otto-recommender-system",
+    "title": "OTTO: candidate retrieval and ranking",
+    "source_ids": ["otto"],
+    "research_question": "Which candidate-generation and ranking decisions transfer when sessions, event types and inference cost differ?",
+    "validation_focus": "Session/time boundaries, candidate recall versus final ranking quality, and prediction-ID alignment.",
+    "experiment_focus": "Compare a fixed candidate generator with and without the proposed ranking stage; report recall and final metric separately.",
+    "status": "historical_research_not_reproduced"
+  },
+  {
+    "id": "birdclef-2024",
+    "competition": "birdclef-2024",
+    "title": "BirdCLEF 2024: context and pseudo-label isolation",
+    "source_ids": ["birdclef"],
+    "research_question": "How should soundscape context, source quality and pseudo-label generation be adapted to a new audio dataset?",
+    "validation_focus": "Recording/site overlap, held-out targets entering pseudo-label generation, and clip-to-soundscape metric alignment.",
+    "experiment_focus": "Compare one fixed supervised baseline with one context or pseudo-label change on the same split and inference budget.",
+    "status": "historical_research_not_reproduced"
+  },
+  {
+    "id": "rogii",
+    "competition": "rogii-wellbore-geology-prediction",
+    "title": "ROGII: domain alignment and reliability routing",
+    "source_ids": ["rogii"],
+    "research_question": "When do alignment-grid and reliability-routing decisions transfer across wells with different domain conditions?",
+    "validation_focus": "Well-level separation, inference-visible information, reliability strata and mismatch between CV and leaderboard.",
+    "experiment_focus": "Compare one fixed baseline with one alignment or routing change on a well-separated split; report strata and aggregate error.",
+    "status": "historical_research_not_reproduced"
+  },
+  {
+    "id": "amex",
+    "competition": "amex-default-prediction",
+    "title": "American Express: customer histories and entity splits",
+    "source_ids": ["amex"],
+    "research_question": "Which grouped-history feature families and shared-fold practices transfer to a new repeated-customer table?",
+    "validation_focus": "Customer separation, fitted preprocessing boundaries, aligned OOF identities and official versus proxy metrics.",
+    "experiment_focus": "Add one last/mean/variation feature family to a fixed baseline; preserve customer split IDs and evaluate the target metric.",
+    "status": "historical_research_not_reproduced"
+  },
+  {
+    "id": "m5",
+    "competition": "m5-forecasting-accuracy",
+    "title": "M5: deployment horizon and forecasting ensembles",
+    "source_ids": ["m5"],
+    "research_question": "How do direct/recursive forecasting and ensemble choices transfer when the forecast horizon or hierarchy changes?",
+    "validation_focus": "Deployment-length rolling windows, lag availability, recursive rollout and aggregation weights.",
+    "experiment_focus": "Compare direct and recursive forecasts on fixed deployment-length windows at equal training cost; record window-level errors.",
+    "status": "historical_research_not_reproduced"
+  }
+]

@@ -1,7 +1,7 @@
 name: Review upstream archive
 on:
   schedule:
-    - cron: "0 1 * * 1" # Monday 09:00 Asia/Shanghai
+    - cron: "0 1 * * *" # Daily 09:00 Asia/Shanghai
   workflow_dispatch:
 permissions:
   contents: write
@@ -23,3 +23,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
+      - name: Explain archive maintenance scope
+        if: always()
+        run: |
+          echo '### Archive review' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Checks upstream metadata daily at 09:00 Asia/Shanghai. New commits produce a review PR; unchanged commits produce no issue or PR.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Curated evidence is preserved. This job does not merge PRs, run models, or submit to Kaggle.' >> "$GITHUB_STEP_SUMMARY"
