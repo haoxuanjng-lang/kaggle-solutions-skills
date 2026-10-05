@@ -71,10 +71,24 @@ def make_plan(scenario_id, data=solutions.DATA):
     profile = {key: row[key] for key in ("slug", "title", "year", "competition_url", "metric", "archive_done", "upstream_commit")}
     profile["metadata_status"] = "pinned_archive_not_current_official_rules"
     profile["official_current_status"] = "unknown"
+    archive_source = {
+        "id": "archive:{}:{}".format(row["upstream_commit"], row["slug"]),
+        "kind": "pinned_archive_metadata",
+        "upstream_repository": manifest["upstream_repository"],
+        "source_path": manifest["source_path"],
+        "url": "{}/blob/{}/{}".format(manifest["upstream_repository"], row["upstream_commit"], manifest["source_path"]),
+        "source_sha256": manifest["source_sha256"],
+        "retrieved_at": manifest["retrieved_at"],
+        "upstream_commit": row["upstream_commit"],
+        "competition": row["slug"],
+        "locators": [f"competition.{key}" for key in profile
+                     if key not in ("metadata_status", "official_current_status")],
+    }
     context = {
         "scenario": scenario,
         "competition": profile,
         "sources": sources,
+        "archive_source": archive_source,
         "pattern_cards": cards,
         "additional_archive_links": solutions.select_links(row, limit=5),
         "context_budget": {"max_pattern_cards": 6, "max_archive_links": 5, "max_output_findings": 12},
@@ -91,6 +105,8 @@ def make_plan(scenario_id, data=solutions.DATA):
             "Use the context and required predecessor results in this task packet. "
             "Write a JSON result using result_contract, with at most 12 findings. "
             "Each finding must cite a supplied source ID and specific locator. "
+            "Cite archive_source for pinned competition metadata using its listed field locators "
+            "and archive_metadata (or maintainer_inference for a deduction); author sources cannot establish archive metadata. "
             "Record unknowns explicitly. Do not replace other roles' output files. "
             "A reviewer disagreement remains unresolved unless additional evidence resolves it."
         )
@@ -112,7 +128,7 @@ def make_plan(scenario_id, data=solutions.DATA):
                 "status": "complete",
                 "finding_required": ["statement", "claim_type", "source_id", "locator"],
                 "finding_types": "Every required finding field is a non-empty string; run_record, when required, is a non-empty string pointing to inspectable evidence.",
-                "claim_types": ["author_report", "maintainer_inference", "locally_reproduced"],
+                "claim_types": ["archive_metadata", "author_report", "maintainer_inference", "locally_reproduced"],
                 "local_reproduction_requires": "run_record pointing to an inspectable measured experiment; never infer from author's code",
             },
         })
@@ -211,7 +227,9 @@ def validate_plan(directory, results=False, data=solutions.DATA):
             if packet != task:
                 errors.append(f"Task packet differs from plan: {role}")
             sources = task["context"]["sources"]
-            source_ids = set()
+            archive_source = expected_tasks.get(role, {}).get("context", {}).get("archive_source", {})
+            archive_id = archive_source.get("id")
+            source_ids = {archive_id} if archive_id else set()
             for source in sources:
                 source_id = source.get("id")
                 source_ids.add(source_id)
@@ -245,6 +263,13 @@ def validate_plan(directory, results=False, data=solutions.DATA):
                         continue
                     if finding.get("source_id") not in source_ids:
                         errors.append(f"Unknown finding source: {role}/{finding.get('source_id')}")
+                    if finding.get("source_id") == archive_id:
+                        if finding.get("claim_type") not in ("archive_metadata", "maintainer_inference"):
+                            errors.append(f"Archive source cannot support author/reproduction claim: {role}")
+                        if finding.get("locator") not in archive_source.get("locators", []):
+                            errors.append(f"Unknown archive field locator: {role}/{finding.get('locator')}")
+                    elif finding.get("claim_type") == "archive_metadata":
+                        errors.append(f"Archive metadata requires the pinned archive source: {role}")
                     if finding.get("claim_type") not in task["result_contract"]["claim_types"]:
                         errors.append(f"Unknown claim type: {role}")
                     if finding.get("claim_type") == "locally_reproduced" and not finding.get("run_record"):

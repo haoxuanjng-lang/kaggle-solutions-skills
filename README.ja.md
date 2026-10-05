@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/tag/v0.2.0"><img src="https://img.shields.io/badge/version-0.2.0-2563eb?style=flat-square" alt="バージョン 0.2.0"></a>
+  <a href="https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/tag/v0.2.1"><img src="https://img.shields.io/badge/version-0.2.1-2563eb?style=flat-square" alt="バージョン 0.2.1"></a>
   <a href="#quick-start"><img src="https://img.shields.io/badge/Python-3.10%2B-3776ab?style=flat-square&amp;logo=python&amp;logoColor=white" alt="Python 3.10 以降"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-10b981?style=flat-square" alt="MIT ライセンス"></a>
   <a href="https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/workflows/ci.yml"><img src="https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/workflows/ci.yml/badge.svg" alt="Skill の CI チェック"></a>
@@ -57,12 +57,12 @@ Kaggle の解法は、フォーラム、Notebook、作者のリポジトリに�
 **Node.js 20+** が必要です。公開 Release から Skill 一式をインストールでき、GitHub token は不要です。
 
 ```powershell
-npx --yes --package=https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.0/haoxuanjng-lang-kaggle-solutions-skills-0.2.0.tgz kaggle-solutions-skills install
+npx --yes --package=https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.1/haoxuanjng-lang-kaggle-solutions-skills-0.2.1.tgz kaggle-solutions-skills install
 ```
 
 既存のインストールを更新する場合は `--force` を追加します。`--destination <skill-folder>` でインストール先を指定できます。
 
-📦 [GitHub Packages](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/packages) · [npm インストールパッケージ](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.0/haoxuanjng-lang-kaggle-solutions-skills-0.2.0.tgz) · [Skill ZIP](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.0/kaggle-solutions-skills-0.2.0.zip)
+📦 [GitHub Packages](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/packages) · [npm インストールパッケージ](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.1/haoxuanjng-lang-kaggle-solutions-skills-0.2.1.tgz) · [Skill ZIP](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.1/kaggle-solutions-skills-0.2.1.zip)
 
 インストールと今後の配布方法の詳細：[Distribution](docs/distribution.md)。
 
@@ -81,7 +81,7 @@ python scripts/project.py install
 GitHub Packages の npm パッケージは `@haoxuanjng-lang/kaggle-solutions-skills` で、`npm.pkg.github.com` に公開しています。[GitHub の公式ガイド](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry) に従って registry の認証を済ませた後、次のコマンドを実行します。
 
 ```powershell
-npx --yes --registry=https://npm.pkg.github.com @haoxuanjng-lang/kaggle-solutions-skills@0.2.0 install
+npx --yes --registry=https://npm.pkg.github.com @haoxuanjng-lang/kaggle-solutions-skills@0.2.1 install
 ```
 
 通常のダウンロードとインストールには、上記の Release コマンドをそのまま利用できます。registry の設定は不要です。Skill 内の調査ツールの実行には Python 3.10+ を使用し、Node.js はファイルのインストールを担当します。
@@ -169,10 +169,10 @@ Harness に、新しいコンペティションに類似する問題の検索、
 
 同じ npm パッケージに Cordis プラグイン、bundle patch、2 言語のメタデータ、ツールのアイコンを収録しています。ローカルの **Harness `0.1.0-rc.6` の完全な Web host** で 6 つのツールの呼び出しに成功し、プラグイン管理画面でマウント済み・有効と表示されることを確認しました。公式の **`0.2.0-rc.2` ツールランタイム** でも、登録、呼び出し、エラーの伝播、アンロードを検証しています。[ローカル検証記録とスクリーンショット](docs/harness-local-validation.md) を参照してください。
 
-[Release](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/tag/v0.2.0) から `.tgz` をダウンロードし、ファイルのあるディレクトリで実行します。
+[Release](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/tag/v0.2.1) から `.tgz` をダウンロードし、ファイルのあるディレクトリで実行します。
 
 ```bash
-npx @deepseek-ai/dsh@0.2.0-rc.2 plugin --profile kaggle add ./haoxuanjng-lang-kaggle-solutions-skills-0.2.0.tgz
+npx @deepseek-ai/dsh@0.2.0-rc.2 plugin --profile kaggle add ./haoxuanjng-lang-kaggle-solutions-skills-0.2.1.tgz
 npx @deepseek-ai/dsh@0.2.0-rc.2 --profile kaggle --dump-config
 ```
 
@@ -207,6 +207,8 @@ $kaggle-solutions-skills 複数の Agent で OTTO の候補検索とランキン
 **タスクパケットの生成 ≠ Agent の実行完了。** ホストで実際に実行した後、`validate <研究目录> --results` で各役割の結果と出典との関連を確認します。形式のチェックに通っても、事実が出典に裏付けられているかは調査者が判断する必要があります。[連携フロー](skills/kaggle-solutions-skills/references/multi-agent-research.md) · [実際の調査での使い方](docs/examples/team-research.md)
 
 [OTTO の実際の調査試用](docs/examples/otto-team-run.md) を 1 回完了しています。5 つの役割が依存関係に沿って調査し、そのうち evidence / validation は独立した Agent が並行して実行しました。キャッシュした作者の本文を読んで、応用実験の調査レポートを作成しました。この記録は調査フローの検証であり、コンペティションでの効果はまだ検証していません。
+
+アーカイブの事実は固定版の独立した出典 ID と `archive_metadata` で引用し、著者の観察には著者の出典 ID を使います。検証器は両者の混同を拒否します。[引用契約](skills/kaggle-solutions-skills/references/multi-agent-research.md#archive-and-author-citations)を参照してください。
 
 <a id="scenarios"></a>
 

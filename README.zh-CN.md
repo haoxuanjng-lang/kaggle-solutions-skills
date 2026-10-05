@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/tag/v0.2.0"><img src="https://img.shields.io/badge/version-0.2.0-2563eb?style=flat-square" alt="Version 0.2.0"></a>
+  <a href="https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/tag/v0.2.1"><img src="https://img.shields.io/badge/version-0.2.1-2563eb?style=flat-square" alt="Version 0.2.1"></a>
   <a href="#quick-start"><img src="https://img.shields.io/badge/Python-3.10%2B-3776ab?style=flat-square&amp;logo=python&amp;logoColor=white" alt="Python 3.10 or newer"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-10b981?style=flat-square" alt="MIT license"></a>
   <a href="https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/workflows/ci.yml"><img src="https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/workflows/ci.yml/badge.svg" alt="Skill checks CI"></a>
@@ -58,12 +58,12 @@ Kaggle 解法散落在论坛、Notebook 和作者仓库里。找到一个冠军�
 需要 **Node.js 20+**。从公开 Release 安装完整 Skill，无需 GitHub token：
 
 ```powershell
-npx --yes --package=https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.0/haoxuanjng-lang-kaggle-solutions-skills-0.2.0.tgz kaggle-solutions-skills install
+npx --yes --package=https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.1/haoxuanjng-lang-kaggle-solutions-skills-0.2.1.tgz kaggle-solutions-skills install
 ```
 
 已有安装可追加 `--force` 更新；`--destination <skill-folder>` 可指定目录。
 
-📦 [GitHub Packages](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/packages) · [下载 npm 安装包](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.0/haoxuanjng-lang-kaggle-solutions-skills-0.2.0.tgz) · [下载 Skill ZIP](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.0/kaggle-solutions-skills-0.2.0.zip)
+📦 [GitHub Packages](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/packages) · [下载 npm 安装包](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.1/haoxuanjng-lang-kaggle-solutions-skills-0.2.1.tgz) · [下载 Skill ZIP](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.1/kaggle-solutions-skills-0.2.1.zip)
 
 完整安装与后续发布说明：[Distribution](docs/distribution.md)。
 
@@ -82,7 +82,7 @@ python scripts/project.py install
 GitHub Packages 的 npm 包为 `@haoxuanjng-lang/kaggle-solutions-skills`，发布在 `npm.pkg.github.com`。按 [GitHub 官方说明](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry) 完成 registry 认证后：
 
 ```powershell
-npx --yes --registry=https://npm.pkg.github.com @haoxuanjng-lang/kaggle-solutions-skills@0.2.0 install
+npx --yes --registry=https://npm.pkg.github.com @haoxuanjng-lang/kaggle-solutions-skills@0.2.1 install
 ```
 
 普通下载与安装可直接使用上方 Release 命令，无需配置 registry。Python 3.10+ 用于运行 Skill 内的研究工具；Node.js 只负责安装文件。
@@ -170,10 +170,10 @@ python scripts/project.py package
 
 同一份 npm 包包含 Cordis 插件、bundle patch、双语元数据和工具图标。已在本机 **Harness `0.1.0-rc.6` 完整 Web host** 中成功调用六个工具，插件管理页显示已挂载、已启用；同时用官方 **`0.2.0-rc.2` 工具运行时** 验证注册、调用、错误传播与卸载。见 [本机验证记录与截图](docs/harness-local-validation.md)。
 
-从 [Release](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/tag/v0.2.0) 下载 `.tgz` 后，在文件所在目录执行：
+从 [Release](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/tag/v0.2.1) 下载 `.tgz` 后，在文件所在目录执行：
 
 ```bash
-npx @deepseek-ai/dsh@0.2.0-rc.2 plugin --profile kaggle add ./haoxuanjng-lang-kaggle-solutions-skills-0.2.0.tgz
+npx @deepseek-ai/dsh@0.2.0-rc.2 plugin --profile kaggle add ./haoxuanjng-lang-kaggle-solutions-skills-0.2.1.tgz
 npx @deepseek-ai/dsh@0.2.0-rc.2 --profile kaggle --dump-config
 ```
 
@@ -208,6 +208,8 @@ $kaggle-solutions-skills 用多 Agent 分析 OTTO 的召回与排序方案，审
 **任务包生成 ≠ Agent 已执行。** 宿主实际运行后，通过 `validate <研究目录> --results` 检查角色结果与来源关联。格式通过仍需要研究者判断事实是否得到来源支持。[协作流程](skills/kaggle-solutions-skills/references/multi-agent-research.md) · [实际研究使用说明](docs/examples/team-research.md)
 
 已完成一次 [OTTO 真实研究试用](docs/examples/otto-team-run.md)：五个角色按依赖完成研究，其中 evidence / validation 由独立 Agent 并行执行，审读缓存作者正文后输出迁移实验简报。该记录验证研究流程，尚未验证比赛收益。
+
+档案事实现在使用独立的固定版本来源 ID 和 `archive_metadata`；作者观察保留作者来源 ID。校验器会拒绝混用这两类声明。见[引用契约](skills/kaggle-solutions-skills/references/multi-agent-research.md#archive-and-author-citations)。
 
 <a id="scenarios"></a>
 
