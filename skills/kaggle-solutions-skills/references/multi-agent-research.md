@@ -58,6 +58,28 @@ available research tool or record the limitation. An archive-only link stays
 the competition is currently running or that its rules are current. OTTO's
 missing archive metric remains unknown until an official source is checked.
 
+## Archive and author citations
+
+Task context separates `archive_source` from the original-author ledgers in
+`sources`. Archive identity includes the upstream commit and competition slug;
+its URL points to the pinned upstream file. Use `archive_metadata` and that ID
+for a profile fact, with a listed field locator such as `competition.metric`.
+For OTTO, the archived metric is null: report that the archive does not supply
+it, not that the official competition has no metric.
+
+Use an author source ID and `author_report` for recorded author observations.
+Use `maintainer_inference` for deductions, citing the archive or author source
+that supports the reasoning. Archive sources cannot support `author_report` or
+`locally_reproduced`; author sources cannot support `archive_metadata`. The
+validator also rejects nonexistent archive field locators and altered provenance.
+A valid citation does not establish that the statement is true or that an
+archive link has been read. Current official status remains unknown.
+
+Plans are checked against the installed skill's exact context and contract.
+For pre-0.2.1 workspaces, keep the original skill version for validation, or
+create a new empty workspace and have agents review and migrate findings.
+Do not overwrite old results or relabel them as a new agent run.
+
 ## Result contract and merging
 
 Use [team-task.json](../assets/templates/team-task.json) as the result template.

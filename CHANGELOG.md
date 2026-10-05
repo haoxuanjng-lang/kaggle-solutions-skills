@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1 — 2026-10-05
+
+- Give competition archive metadata its own pinned citation identity in research task packets.
+- Accept `archive_metadata` findings and reject archive/author claim misattribution while preserving unknown metrics and unread links.
+- Document the citation contract and synchronize installation commands in all four READMEs.
+
 ## 0.2.0 — 2026-10-04
 
 - Added a native DeepSeek Harness plugin with six research tools, including team-plan generation, tested against its official tool runtime.

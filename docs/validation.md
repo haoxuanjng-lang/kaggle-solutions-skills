@@ -1,5 +1,36 @@
 # Verification records
 
+## v0.2.1 — Separate archive and author citation identities
+
+Date: 2026-10-05, Asia/Shanghai.
+
+- Local daily maintenance passed all 15 checks: project integrity, 32 Python
+  tests, npm tests with the pinned official runtime enabled, npm pack preview,
+  scenario discovery, and plan/validation smoke checks for all five scenarios.
+- `solutions.py validate` passed: 717 competitions, 4,724 links, 21 cards and
+  21 source records. Curated knowledge and the upstream snapshot were unchanged.
+- Regression checks accept OTTO's null archive metric with its archive identity
+  and reject author/reproduction misattribution, invalid field locators, and
+  modified archive provenance.
+- An independent agent completed a real OTTO trial from the updated skill and
+  task packets, executing all five roles serially in dependency order. All five
+  outputs and its brief passed `validate --results`; independent diff review
+  found no blocking defects. It cited the archived title/year/null metric with
+  the archive ID, recorded candidate retrieval/reranking under author source
+  `otto`, and preserved untested transfer hypotheses. This was one agent in five
+  roles, not five independent researchers or fresh original-source reading.
+- Official Harness master still resolved to `5badb15009ae1756c3afe0ae0cef1faafc290ccc`;
+  the official tool-authoring reference was read again. Compatibility remains
+  pinned to `dsh-tools@0.2.0-rc.2` and `cordis@4.0.4`. No new full Web-host run
+  or API-key conversation was attempted.
+- Existing cloud [daily maintenance](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/runs/37273539658)
+  and [archive sync](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/runs/37273862052)
+  passed. Sync reported no upstream change at `6414951ae88d252a6c92d4489ba389b2b7cb40c7`.
+
+These checks establish research-tool behavior, not model gains or official
+Kaggle scores. Old workspaces require their original skill version or reviewed
+migration into a new workspace; generated plans are never evidence of dispatch.
+
 ## v0.2.0 — Native Harness plugin and daily research maintenance
 
 Date: 2026-10-04, Asia/Shanghai. Publication follows local full-host validation.

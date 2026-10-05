@@ -14,7 +14,7 @@
     <rect x="972" y="139" width="273" height="85" rx="12" fill="#ccfbf1" stroke="#99f6e4"/>
   </g>
   <g font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#0f172a"><text x="53" y="174">Scout</text><text x="353" y="106">Evidence</text><text x="353" y="244">Validation</text><text x="666" y="174">Transfer</text><text x="990" y="174">Reviewer</text></g>
-  <g font-family="Segoe UI,Arial,sans-serif" font-size="14" fill="#475569"><text x="53" y="201">Profile + unknowns</text><text x="353" y="133">Sources + locators</text><text x="353" y="271">Splits + leakage</text><text x="666" y="201">Conditions + experiments</text><text x="990" y="201">Brief + unresolved disagreements</text></g>
+  <g font-family="Segoe UI,Arial,sans-serif" font-size="14" fill="#475569"><text x="53" y="201">Pinned archive + unknowns</text><text x="353" y="133">Author sources + locators</text><text x="353" y="271">Splits + leakage</text><text x="666" y="201">Conditions + experiments</text><text x="990" y="201">Brief + unresolved disagreements</text></g>
   <text x="440" y="185" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="11" font-weight="600" letter-spacing="2" fill="#7c3aed">PARALLEL</text>
   <rect x="780" y="306" width="286" height="26" rx="13" fill="#f8fafc"/><text x="923" y="323" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="12" fill="#64748b">Reviewer receives every predecessor output</text>
 </svg>

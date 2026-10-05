@@ -121,6 +121,53 @@ class ResearchTeamTests(unittest.TestCase):
             self.assertFalse(result["ok"])
             self.assertTrue(any("escapes" in e for e in result["errors"]))
 
+    def test_archive_identity_and_claim_boundaries(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            plan = team.make_plan("otto")
+            team.save_plan(plan, tmp)
+            archive = plan["tasks"][0]["context"]["archive_source"]
+            self.assertIn(plan["upstream_commit"], archive["id"])
+            self.assertEqual(archive["url"], f"{archive['upstream_repository']}/blob/{plan['upstream_commit']}/{archive['source_path']}")
+            manifest = team.read_json(team.solutions.DATA / "manifest.json")
+            self.assertEqual(archive["source_sha256"], manifest["source_sha256"])
+            self.assertNotIn(archive["id"], {s["id"] for s in plan["tasks"][0]["context"]["sources"]})
+            for task in plan["tasks"]:
+                team.write_json(Path(tmp) / task["output"], {
+                    "schema_version": 1, "role": task["role"], "status": "complete",
+                    "findings": [{"statement": "The archive metric is unknown", "claim_type": "archive_metadata",
+                                  "source_id": archive["id"], "locator": "competition.metric"}],
+                    "unknowns": [], "proposed_experiments": [], "disagreements": [], "handoff": "Fixture only",
+                })
+            self.assertTrue(team.validate_plan(tmp, results=True)["ok"])
+            path = Path(tmp) / "outputs/scout.json"
+            original = team.read_json(path)
+            mutations = [
+                ({"claim_type": "author_report"}, "cannot support author"),
+                ({"claim_type": "locally_reproduced", "run_record": "fixture.json"}, "cannot support author"),
+                ({"source_id": plan["tasks"][0]["context"]["sources"][0]["id"]}, "requires the pinned archive"),
+                ({"locator": "competition.official_current_status"}, "Unknown archive field locator"),
+                ({"locator": "competition.nonexistent"}, "Unknown archive field locator"),
+            ]
+            for changes, message in mutations:
+                with self.subTest(changes=changes):
+                    result = json.loads(json.dumps(original))
+                    result["findings"][0].update(changes)
+                    team.write_json(path, result)
+                    checked = team.validate_plan(tmp, results=True)
+                    self.assertFalse(checked["ok"])
+                    self.assertTrue(any(message in e for e in checked["errors"]), checked)
+            original["findings"][0]["claim_type"] = "maintainer_inference"
+            team.write_json(path, original)
+            self.assertTrue(team.validate_plan(tmp, results=True)["ok"])
+            # Changing both packet and plan cannot legitimize altered archive provenance.
+            for task in plan["tasks"]:
+                task["context"]["archive_source"]["upstream_commit"] = "0" * 40
+                team.write_json(Path(tmp) / "tasks" / f"{task['id']}.json", task)
+            team.write_json(Path(tmp) / "plan.json", plan)
+            checked = team.validate_plan(tmp, results=True)
+            self.assertFalse(checked["ok"])
+            self.assertTrue(any("context differs" in e for e in checked["errors"]))
+
     def test_unknown_scenario_does_not_fabricate_competition(self):
         with self.assertRaisesRegex(ValueError, "Unknown scenario"):
             team.make_plan("made-up-live-competition")

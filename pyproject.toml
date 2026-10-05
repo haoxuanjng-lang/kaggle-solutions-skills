@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "kaggle-solutions-skills"
-version = "0.2.0"
+version = "0.2.1"
 description = "Evidence-backed Kaggle solution research and maintained agent skill"
 requires-python = ">=3.10"
 dependencies = ["PyYAML>=6.0,<7"]

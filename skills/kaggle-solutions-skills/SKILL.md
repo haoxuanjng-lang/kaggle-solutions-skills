@@ -2,7 +2,7 @@
 name: kaggle-solutions-skills
 description: Research Kaggle solution writeups and author code using a pinned competition archive; retrieve analogous tasks, extract evidence-backed decisions, propose transferable experiments, and maintain the solution knowledge base. Use for Kaggle 解法检索、冠军方案分析、跨比赛方法迁移、赛后知识沉淀 and archive maintenance. Scored competition execution remains with the chosen competition workflow.
 metadata:
-  version: "0.2.0"
+  version: "0.2.1"
 ---
 
 # Kaggle Solutions Skills
@@ -60,6 +60,7 @@ python <skill-dir>/scripts/research_team.py validate workspaces/otto-research --
 生成任务包与通过计划校验只证明交接结构，不表示 Agent 已运行。完成状态以实际输出和来源检查为准。
 官方计分执行仍交给用户选定的比赛 workflow；不把研究团队变成第二套提交流程。
 
+- `archive_metadata`：研究任务包中的固定档案事实，引用独立 archive 来源 ID 和具体字段；不是当前官方规则或作者报告。
 - `linked_unread`：只有索引中的链接/标题/排名。
 - `source_read`：已取得并阅读相关正文或代码，记录 URL、读取时间、正文 hash/commit 和具体位置。
 - `author_report`：作者报告的决定、分数或消融，仍然是作者报告。
