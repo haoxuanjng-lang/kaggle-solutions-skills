@@ -12,6 +12,13 @@ Date: 2026-10-05, Asia/Shanghai.
 - Regression checks accept OTTO's null archive metric with its archive identity
   and reject author/reproduction misattribution, invalid field locators, and
   modified archive provenance.
+- An independent agent completed a real OTTO trial from the updated skill and
+  task packets, executing all five roles serially in dependency order. All five
+  outputs and its brief passed `validate --results`; independent diff review
+  found no blocking defects. It cited the archived title/year/null metric with
+  the archive ID, recorded candidate retrieval/reranking under author source
+  `otto`, and preserved untested transfer hypotheses. This was one agent in five
+  roles, not five independent researchers or fresh original-source reading.
 - Official Harness master still resolved to `5badb15009ae1756c3afe0ae0cef1faafc290ccc`;
   the official tool-authoring reference was read again. Compatibility remains
   pinned to `dsh-tools@0.2.0-rc.2` and `cordis@4.0.4`. No new full Web-host run
