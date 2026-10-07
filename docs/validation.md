@@ -1,5 +1,31 @@
 # Verification records
 
+## v0.2.2 — Stable source hashes across platforms
+
+Date: 2026-10-07, Asia/Shanghai.
+
+- A regression scenario returned text containing CRLF and bare CR. The fetch
+  helper preserved those exact UTF-8 cache bytes, recorded their matching
+  `cached_bytes_sha256`, and produced the same normalized `content_sha256` as
+  the equivalent LF text. This is adapter-returned text, not an HTTP-byte hash.
+- All 33 Python tests passed, including the new fetch/cache regression. npm
+  tests passed, and all six plugin tests passed with the pinned official
+  `dsh-tools@0.2.0-rc.2`, `dsh-system-prompt@0.2.0-rc.2`, and
+  `cordis@4.0.4` runtime packages.
+- The local daily maintenance suite passed all 15 deterministic checks,
+  including plan generation and validation for all five historical scenarios.
+  No model call, competition training, or Kaggle submission was performed.
+- Official Harness `0.2.0-rc.2` was tied to its source-tag commit `639ed01`.
+  Current master / `0.2.1-alpha.1` at `5badb15` was source-reviewed, but its
+  registration/execution path was not completed and is not claimed compatible.
+- The existing archive refresh [PR #2](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/pull/2)
+  was unblocked, passed all six Windows/Ubuntu checks, and merged separately.
+  It added four archive competitions without changing curated cards or source
+  records; those new links remain archive metadata, not read evidence.
+
+Public release and installation evidence is recorded only after CI and the
+immutable v0.2.2 assets are published.
+
 ## v0.2.1 — Separate archive and author citation identities
 
 Date: 2026-10-05, Asia/Shanghai.

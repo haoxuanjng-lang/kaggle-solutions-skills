@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.2 — 2026-10-07
+
+- Normalize source-text line endings for stable content hashes while preserving the exact adapter-returned cache bytes.
+- Record separate normalized-content and cached-byte hashes, preventing Windows text-mode writes from corrupting existing CRLF content.
+- Separate the tested Harness `0.2.0-rc.2` source identity from the reviewed but unverified `0.2.1-alpha.1` API state.
+
 ## 0.2.1 — 2026-10-05
 
 - Give competition archive metadata its own pinned citation identity in research task packets.

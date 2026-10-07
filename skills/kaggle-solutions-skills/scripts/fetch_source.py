@@ -17,6 +17,16 @@ def utc_now():
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
 
+CONTENT_NORMALIZATION = "utf-8-lf"
+
+
+def normalized_content_bytes(body):
+    """Encode text after canonicalizing line endings, without other changes."""
+    if not isinstance(body, str):
+        raise TypeError("Source body must be text")
+    return body.replace("\r\n", "\n").replace("\r", "\n").encode("utf-8")
+
+
 def kaggle_token():
     token = os.environ.get("KAGGLE_API_TOKEN", "").strip()
     path = Path.home() / ".kaggle" / "access_token"
@@ -167,9 +177,14 @@ def main():
         body, details = fetch_kaggle(args.url) if hostname in ("www.kaggle.com", "kaggle.com") else fetch_github(args.url)
         if not body.strip():
             raise ValueError("Empty source text")
+        cached_bytes = body.encode("utf-8")
         metadata.update(details, status="retrieved", evidence_level="source_retrieved_unreviewed",
-                        content_sha256=hashlib.sha256(body.encode()).hexdigest(), content_file=out.name + ".md")
-        out.with_suffix(".md").write_text(body, encoding="utf-8")
+                        content_sha256=hashlib.sha256(normalized_content_bytes(body)).hexdigest(),
+                        content_normalization=CONTENT_NORMALIZATION,
+                        cached_bytes_sha256=hashlib.sha256(cached_bytes).hexdigest(),
+                        content_file=out.name + ".md")
+        # Avoid platform newline translation (and CRCRLF corruption on Windows).
+        out.with_suffix(".md").write_bytes(cached_bytes)
     except Exception as exc:
         # Do not print exception text from HTTP/auth libraries; it can contain headers.
         metadata["error"] = str(exc) if isinstance(exc, ValueError) else type(exc).__name__

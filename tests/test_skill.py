@@ -1,5 +1,6 @@
 # Copyright (c) 2026 haoxuanjng-lang. SPDX-License-Identifier: MIT
 import copy
+import hashlib
 import importlib.util
 import json
 import os
@@ -218,6 +219,23 @@ class EvidenceAndDistribution(unittest.TestCase):
     def test_github_file_requires_immutable_commit(self):
         with self.assertRaisesRegex(ValueError,'pin'):
             fetch.fetch_github('https://raw.githubusercontent.com/owner/repo/main/README.md')
+
+    def test_source_hash_separates_normalized_content_from_cached_bytes(self):
+        lf = fetch.normalized_content_bytes('first\nsecond\n')
+        self.assertEqual(lf, fetch.normalized_content_bytes('first\r\nsecond\r'))
+        with tempfile.TemporaryDirectory() as directory:
+            url = 'https://raw.githubusercontent.com/owner/repo/' + COMMIT + '/README.md'
+            body = 'first\r\nsecond\r'
+            with patch.object(fetch, 'fetch_github', return_value=(body, {'retrieval_method':'test'})), \
+                 patch.object(os.sys, 'argv', ['fetch_source.py', url, '--cache', directory]):
+                self.assertEqual(0, fetch.main())
+            record = json.loads(next(Path(directory).glob('*.json')).read_text(encoding='utf-8'))
+            cached = next(Path(directory).glob('*.md')).read_bytes()
+            self.assertEqual(body.encode(), cached)
+            self.assertEqual(hashlib.sha256(cached).hexdigest(), record['cached_bytes_sha256'])
+            self.assertEqual(hashlib.sha256(lf).hexdigest(), record['content_sha256'])
+            self.assertNotEqual(record['content_sha256'], record['cached_bytes_sha256'])
+            self.assertEqual('utf-8-lf', record['content_normalization'])
 
     def test_install_contains_the_same_portable_knowledge_and_no_caches(self):
         with tempfile.TemporaryDirectory() as directory:
