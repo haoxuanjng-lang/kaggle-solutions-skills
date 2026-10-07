@@ -18,7 +18,7 @@ Schema version 1 is recorded in the manifest. Source records and cards use the f
 
 Required: `id`, `url`, `title`, `author`, `source_role`, `status`, `read_at`, `content_sha256`, `locator`, `retrieval_method`, `reproduction_status`. GitHub files additionally include `source_commit`. A solution source has its competition slug. Initial roles are `solution_writeup`, `author_code_readme` and `skill_reference`.
 
-`status: source_read` means the pertinent body/code was retrieved and read; `content_sha256` hashes the retrieved text in UTF-8. The ledger proves traceability, not that the entire codebase was examined. State narrow coverage in `notes`. For unavailable or unread discoveries keep an appropriate status and do not cite them as read evidence.
+`status: source_read` means the pertinent body/code was retrieved and read. New fetch records define `content_sha256` as UTF-8 text with CRLF and bare CR normalized to LF, state `content_normalization: utf-8-lf`, and use `cached_bytes_sha256` for the exact cached file. The cache hash is not the original HTTP response hash. Older curated ledger entries predate these explicit fields and remain valid; do not infer a byte hash from them. The ledger proves traceability, not that the entire codebase was examined. State narrow coverage in `notes`. For unavailable or unread discoveries keep an appropriate status and do not cite them as read evidence.
 
 ## Pattern card
 

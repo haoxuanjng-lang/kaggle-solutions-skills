@@ -1,6 +1,6 @@
 {
   "name": "@haoxuanjng-lang/kaggle-solutions-skills",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Evidence-backed Kaggle solution research: installable agent skill with offline knowledge",
   "license": "MIT",
   "type": "module",

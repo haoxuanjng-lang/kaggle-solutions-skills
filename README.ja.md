@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/tag/v0.2.1"><img src="https://img.shields.io/badge/version-0.2.1-2563eb?style=flat-square" alt="バージョン 0.2.1"></a>
+  <a href="https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/tag/v0.2.2"><img src="https://img.shields.io/badge/version-0.2.2-2563eb?style=flat-square" alt="バージョン 0.2.2"></a>
   <a href="#quick-start"><img src="https://img.shields.io/badge/Python-3.10%2B-3776ab?style=flat-square&amp;logo=python&amp;logoColor=white" alt="Python 3.10 以降"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-10b981?style=flat-square" alt="MIT ライセンス"></a>
   <a href="https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/workflows/ci.yml"><img src="https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/workflows/ci.yml/badge.svg" alt="Skill の CI チェック"></a>
@@ -57,12 +57,12 @@ Kaggle の解法は、フォーラム、Notebook、作者のリポジトリに�
 **Node.js 20+** が必要です。公開 Release から Skill 一式をインストールでき、GitHub token は不要です。
 
 ```powershell
-npx --yes --package=https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.1/haoxuanjng-lang-kaggle-solutions-skills-0.2.1.tgz kaggle-solutions-skills install
+npx --yes --package=https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.2/haoxuanjng-lang-kaggle-solutions-skills-0.2.2.tgz kaggle-solutions-skills install
 ```
 
 既存のインストールを更新する場合は `--force` を追加します。`--destination <skill-folder>` でインストール先を指定できます。
 
-📦 [GitHub Packages](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/packages) · [npm インストールパッケージ](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.1/haoxuanjng-lang-kaggle-solutions-skills-0.2.1.tgz) · [Skill ZIP](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.1/kaggle-solutions-skills-0.2.1.zip)
+📦 [GitHub Packages](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/packages) · [npm インストールパッケージ](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.2/haoxuanjng-lang-kaggle-solutions-skills-0.2.2.tgz) · [Skill ZIP](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.2/kaggle-solutions-skills-0.2.2.zip)
 
 インストールと今後の配布方法の詳細：[Distribution](docs/distribution.md)。
 
@@ -81,7 +81,7 @@ python scripts/project.py install
 GitHub Packages の npm パッケージは `@haoxuanjng-lang/kaggle-solutions-skills` で、`npm.pkg.github.com` に公開しています。[GitHub の公式ガイド](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry) に従って registry の認証を済ませた後、次のコマンドを実行します。
 
 ```powershell
-npx --yes --registry=https://npm.pkg.github.com @haoxuanjng-lang/kaggle-solutions-skills@0.2.1 install
+npx --yes --registry=https://npm.pkg.github.com @haoxuanjng-lang/kaggle-solutions-skills@0.2.2 install
 ```
 
 通常のダウンロードとインストールには、上記の Release コマンドをそのまま利用できます。registry の設定は不要です。Skill 内の調査ツールの実行には Python 3.10+ を使用し、Node.js はファイルのインストールを担当します。
@@ -169,10 +169,10 @@ Harness に、新しいコンペティションに類似する問題の検索、
 
 同じ npm パッケージに Cordis プラグイン、bundle patch、2 言語のメタデータ、ツールのアイコンを収録しています。ローカルの **Harness `0.1.0-rc.6` の完全な Web host** で 6 つのツールの呼び出しに成功し、プラグイン管理画面でマウント済み・有効と表示されることを確認しました。公式の **`0.2.0-rc.2` ツールランタイム** でも、登録、呼び出し、エラーの伝播、アンロードを検証しています。[ローカル検証記録とスクリーンショット](docs/harness-local-validation.md) を参照してください。
 
-[Release](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/tag/v0.2.1) から `.tgz` をダウンロードし、ファイルのあるディレクトリで実行します。
+[Release](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/tag/v0.2.2) から `.tgz` をダウンロードし、ファイルのあるディレクトリで実行します。
 
 ```bash
-npx @deepseek-ai/dsh@0.2.0-rc.2 plugin --profile kaggle add ./haoxuanjng-lang-kaggle-solutions-skills-0.2.1.tgz
+npx @deepseek-ai/dsh@0.2.0-rc.2 plugin --profile kaggle add ./haoxuanjng-lang-kaggle-solutions-skills-0.2.2.tgz
 npx @deepseek-ai/dsh@0.2.0-rc.2 --profile kaggle --dump-config
 ```
 

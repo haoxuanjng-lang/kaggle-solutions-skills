@@ -2,7 +2,7 @@
 name: kaggle-solutions-skills
 description: Research Kaggle solution writeups and author code using a pinned competition archive; retrieve analogous tasks, extract evidence-backed decisions, propose transferable experiments, and maintain the solution knowledge base. Use for Kaggle 解法检索、冠军方案分析、跨比赛方法迁移、赛后知识沉淀 and archive maintenance. Scored competition execution remains with the chosen competition workflow.
 metadata:
-  version: "0.2.1"
+  version: "0.2.2"
 ---
 
 # Kaggle Solutions Skills

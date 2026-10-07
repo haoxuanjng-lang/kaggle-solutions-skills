@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/tag/v0.2.1"><img src="https://img.shields.io/badge/version-0.2.1-2563eb?style=flat-square" alt="Version 0.2.1"></a>
+  <a href="https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/tag/v0.2.2"><img src="https://img.shields.io/badge/version-0.2.2-2563eb?style=flat-square" alt="Version 0.2.2"></a>
   <a href="#quick-start"><img src="https://img.shields.io/badge/Python-3.10%2B-3776ab?style=flat-square&amp;logo=python&amp;logoColor=white" alt="Python 3.10 or newer"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-10b981?style=flat-square" alt="MIT license"></a>
   <a href="https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/workflows/ci.yml"><img src="https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/workflows/ci.yml/badge.svg" alt="Skill checks CI"></a>
@@ -57,12 +57,12 @@ This project uses [faridrashidi/kaggle-solutions](https://github.com/faridrashid
 Requires **Node.js 20+**. Install the complete skill from a public release without a GitHub token:
 
 ```powershell
-npx --yes --package=https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.1/haoxuanjng-lang-kaggle-solutions-skills-0.2.1.tgz kaggle-solutions-skills install
+npx --yes --package=https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.2/haoxuanjng-lang-kaggle-solutions-skills-0.2.2.tgz kaggle-solutions-skills install
 ```
 
 Add `--force` to update an existing installation, or `--destination <skill-folder>` to choose a directory.
 
-📦 [GitHub Packages](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/packages) · [Download the npm package](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.1/haoxuanjng-lang-kaggle-solutions-skills-0.2.1.tgz) · [Download the skill ZIP](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.1/kaggle-solutions-skills-0.2.1.zip)
+📦 [GitHub Packages](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/packages) · [Download the npm package](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.2/haoxuanjng-lang-kaggle-solutions-skills-0.2.2.tgz) · [Download the skill ZIP](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.2/kaggle-solutions-skills-0.2.2.zip)
 
 For full installation and release instructions, see [Distribution](docs/distribution.md).
 
@@ -81,7 +81,7 @@ python scripts/project.py install
 The npm package is `@haoxuanjng-lang/kaggle-solutions-skills`, published at `npm.pkg.github.com`. After configuring registry authentication according to the [official GitHub instructions](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry):
 
 ```powershell
-npx --yes --registry=https://npm.pkg.github.com @haoxuanjng-lang/kaggle-solutions-skills@0.2.1 install
+npx --yes --registry=https://npm.pkg.github.com @haoxuanjng-lang/kaggle-solutions-skills@0.2.2 install
 ```
 
 For ordinary downloads and installation, use the public release command above without configuring a registry. Python 3.10+ runs the skill's research tools; Node.js installs the files.
@@ -171,10 +171,10 @@ Ask Harness to find similar problems for a new competition, compare solutions, o
 
 The same npm package includes the Cordis plugin, bundle patch, bilingual metadata, and tool icon. All six tools were successfully called in a local **Harness `0.1.0-rc.6` full Web host**, with the plugin manager showing the plugin mounted and enabled. The official **`0.2.0-rc.2` tool runtime** was also used to verify registration, execution, error propagation, and disposal. See the [local validation record and screenshot](docs/harness-local-validation.md).
 
-Download the `.tgz` from the [release](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/tag/v0.2.1), then run these commands in the directory containing it:
+Download the `.tgz` from the [release](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/tag/v0.2.2), then run these commands in the directory containing it:
 
 ```bash
-npx @deepseek-ai/dsh@0.2.0-rc.2 plugin --profile kaggle add ./haoxuanjng-lang-kaggle-solutions-skills-0.2.1.tgz
+npx @deepseek-ai/dsh@0.2.0-rc.2 plugin --profile kaggle add ./haoxuanjng-lang-kaggle-solutions-skills-0.2.2.tgz
 npx @deepseek-ai/dsh@0.2.0-rc.2 --profile kaggle --dump-config
 ```
 
