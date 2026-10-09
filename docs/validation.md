@@ -23,8 +23,33 @@ Date: 2026-10-07, Asia/Shanghai.
   It added four archive competitions without changing curated cards or source
   records; those new links remain archive metadata, not read evidence.
 
-Public release and installation evidence is recorded only after CI and the
-immutable v0.2.2 assets are published.
+Public distribution follow-up: 2026-10-09, Asia/Shanghai.
+
+- [Publication succeeded](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/runs/37644451296)
+  from `b6436b50d510395d35f70ba5225ca7474aa24faf`. GitHub's package API
+  confirmed public visibility; all three Release assets were uploaded.
+- Anonymous HTTP downloads of the existing TGZ (374,032 bytes) and ZIP
+  (352,975 bytes) matched the published `SHA256SUMS.txt`. TGZ SHA256:
+  `0acad9888bd096d1400d98b61a8a1badde98b4a67c496cf02afdf75523778b95`;
+  ZIP SHA256:
+  `ecab4c6f52b8fd61a4fbc02091e689d256f8a8d4ff3d9c15a2979d67ce7e6711`.
+- Public Release URL `npx` installation into a fresh destination succeeded.
+  All 22 installed files matched the maintained skill byte-for-byte. Installed
+  `stats` reported 721 competitions, 4,768 links, 21 cards and 21 source records;
+  installed OTTO plan generation and validation succeeded (`not_dispatched`,
+  `results_checked: false`). No research-agent execution is implied.
+- The local maintenance suite passed all 15 checks, including 33 Python tests
+  and all five scenario plans/validators. A separate npm run with the pinned
+  official runtime passed all 10 tests without skips. Knowledge validation
+  passed. These checks do not establish newer Harness compatibility.
+- Latest observed cloud [daily maintenance](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/runs/37741600772)
+  and [archive review](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/runs/37741841795)
+  succeeded on October 8; archive review reported no change at
+  `dc9a449d84841cb9d03c110a4db16192c243d907`. An October 9 run had not
+  appeared when inspected; it is not recorded as passed.
+
+This follow-up corrects stale installation commands in the distribution guide
+and records observed evidence. It does not rebuild or replace v0.2.2 assets.
 
 ## v0.2.1 — Separate archive and author citation identities
 

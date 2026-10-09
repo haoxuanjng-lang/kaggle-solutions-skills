@@ -13,7 +13,7 @@ GitHub Packages, not npmjs.org:
 Node.js 20+ installs the package; Python 3.10+ runs the research scripts.
 
 ```sh
-npx --yes --package=https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.0/haoxuanjng-lang-kaggle-solutions-skills-0.2.0.tgz kaggle-solutions-skills install
+npx --yes --package=https://github.com/haoxuanjng-lang/kaggle-solutions-skills/releases/download/v0.2.2/haoxuanjng-lang-kaggle-solutions-skills-0.2.2.tgz kaggle-solutions-skills install
 ```
 
 Use `--destination <skill-folder>` for another location. An existing destination
@@ -35,7 +35,7 @@ Follow the [official authentication instructions](https://docs.github.com/en/pac
 After login:
 
 ```sh
-npx --yes --registry=https://npm.pkg.github.com @haoxuanjng-lang/kaggle-solutions-skills@0.2.0 install
+npx --yes --registry=https://npm.pkg.github.com @haoxuanjng-lang/kaggle-solutions-skills@0.2.2 install
 ```
 
 The public Release command above avoids this registry requirement.
@@ -43,7 +43,7 @@ The public Release command above avoids this registry requirement.
 ## Publish a new version
 
 1. Update `VERSION`, `package.json`, `pyproject.toml`, Skill frontmatter version,
-   `CHANGELOG.md` and versioned README/download examples together.
+   `CHANGELOG.md` and versioned README/download examples (including this guide) together.
 2. Run `python scripts/project.py check`, the Python tests and `npm test`.
 3. Push the reviewed commit, then publish a GitHub Release whose tag is
    `v<package-version>` and whose target is that commit.
