@@ -1,5 +1,29 @@
 # Verification records
 
+## Release recovery tooling — 2026-10-23
+
+- Followed up the immutable-asset issue recorded in [PR #4](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/pull/4).
+  Publication now compares existing Release downloads before npm publication
+  and again before uploading missing assets. Existing bytes cannot be replaced.
+- All 43 Python tests passed, including 10 release-recovery tests; all 15 local
+  maintenance checks passed. All 10 npm tests passed with the existing pinned
+  official Harness runtime enabled, without skips. Knowledge validation passed;
+  all five historical scenario plans and validators passed.
+- A live read-only check against the original v0.2.2 downloads verified all three
+  assets and uploaded zero files. A temporary local copy with altered checksums
+  failed with `Immutable release asset differs: SHA256SUMS.txt`, as expected.
+  No remote asset was modified; no live partial-upload recovery was attempted.
+- Today's cloud [daily maintenance](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/runs/39907969508)
+  and [archive review](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/runs/39908094839)
+  succeeded. Archive review reported no change at
+  `dc9a449d84841cb9d03c110a4db16192c243d907`; no archive PR was needed.
+
+This changes repository publishing tools only. Distributed skill/plugin files,
+knowledge, version 0.2.2 and existing published assets are unchanged. Rebuilt ZIP
+timestamps may cause a byte mismatch; recovery must preserve original artifacts
+or use a new version. Existing npm-version handling is unchanged. These checks
+do not establish newer Harness compatibility, model gains or competition scores.
+
 ## v0.2.2 — Stable source hashes across platforms
 
 Date: 2026-10-07, Asia/Shanghai.

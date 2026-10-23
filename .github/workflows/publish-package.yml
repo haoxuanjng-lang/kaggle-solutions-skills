@@ -57,6 +57,11 @@ jobs:
           python "$RUNNER_TEMP/packaged-skill/scripts/research_team.py" scenarios --json
           python "$RUNNER_TEMP/packaged-skill/scripts/research_team.py" plan --scenario otto --output "$RUNNER_TEMP/packaged-otto-plan"
           python "$RUNNER_TEMP/packaged-skill/scripts/research_team.py" validate "$RUNNER_TEMP/packaged-otto-plan"
+      - name: Verify existing release downloads before publication
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: python scripts/release_assets.py --repo "$GH_REPO" --tag "$PACKAGE_TAG" --check-only
       - name: Publish npm package to GitHub Packages
         env:
           NODE_AUTH_TOKEN: ${{ github.token }}
@@ -69,4 +74,5 @@ jobs:
       - name: Attach public downloads to release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release upload "$PACKAGE_TAG" dist/*.zip dist/*.tgz dist/SHA256SUMS.txt --clobber
+          GH_REPO: ${{ github.repository }}
+        run: python scripts/release_assets.py --repo "$GH_REPO" --tag "$PACKAGE_TAG"
