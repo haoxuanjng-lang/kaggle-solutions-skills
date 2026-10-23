@@ -54,10 +54,16 @@ The public Release command above avoids this registry requirement.
 5. Confirm the workflow succeeded, the package visibility is public and the
    anonymous Release installation works. Record the observed results.
 
-The workflow also supports manual dispatch to recover a release attempt. It
-skips an already-published npm version and replaces Release assets with the
-rebuilt files. Dispatch from the matching release revision when rebuilding
-package content; use a new version for changes to the distributed files.
+The workflow also supports manual dispatch to recover a release attempt. Before
+publication it downloads existing Release assets and compares their SHA256 with
+the local files. Identical assets are preserved; only missing assets are uploaded,
+without replacement. A mismatch or an incomplete remote upload stops recovery.
+The upload step repeats this verification to catch changes during publication.
+
+Dispatch from the matching release revision. Rebuilding a ZIP can change its
+timestamps and therefore its bytes even when source content is unchanged. If
+verification fails, recover the original artifacts or publish a new version;
+do not delete or overwrite an existing asset to bypass the check.
 
 The npm package uses an explicit file allowlist, includes licenses and offline
 knowledge, and has no runtime dependencies or install lifecycle scripts. It
