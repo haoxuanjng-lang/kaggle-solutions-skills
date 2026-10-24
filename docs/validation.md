@@ -1,5 +1,26 @@
 # Verification records
 
+## Registry artifact recovery guard — 2026-10-24
+
+- Independent review identified an npm-only partial-publication case: an existing
+  npm version could be skipped while a different local tarball was attached to
+  a Release with no assets. The publishing workflow now requires exact SHA512
+  agreement with that version's registry `dist.integrity` before Release upload.
+- All 48 Python tests passed, including five new registry-artifact tests. All
+  15 daily checks passed, including five historical scenario plans/validators;
+  all 10 npm tests passed without skips using the pinned official Harness runtime.
+  Knowledge validation passed. Independent review found no blocking issue.
+- Live local registry lookup returned HTTP 401 (no npm registry authentication).
+  Registry responses in the new tests are fixtures; live authenticated recovery
+  was not exercised. The workflow uses its existing `NODE_AUTH_TOKEN` binding.
+- Latest observed cloud daily maintenance and archive review were the successful
+  October 23 runs linked below; October 24 scheduled runs had not appeared when
+  inspected. Archive review reported unchanged commit `dc9a449d84841cb9d03c110a4db16192c243d907`.
+
+Only repository publication tooling and its documentation changed. Distributed
+skill/plugin contents and version 0.2.2 remain unchanged; no package was rebuilt
+for publication, no assets were replaced, and no new competition result is claimed.
+
 ## Release recovery tooling — 2026-10-23
 
 - Followed up the immutable-asset issue recorded in [PR #4](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/pull/4).
