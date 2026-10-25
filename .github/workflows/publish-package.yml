@@ -71,6 +71,10 @@ jobs:
           else
             npm publish "./dist/haoxuanjng-lang-kaggle-solutions-skills-$PACKAGE_VERSION.tgz" --registry=https://npm.pkg.github.com --access public --ignore-scripts
           fi
+      - name: Verify registry tarball before attaching Release downloads
+        env:
+          NODE_AUTH_TOKEN: ${{ github.token }}
+        run: python scripts/verify_npm_artifact.py --package "@haoxuanjng-lang/kaggle-solutions-skills@$PACKAGE_VERSION" --tarball "dist/haoxuanjng-lang-kaggle-solutions-skills-$PACKAGE_VERSION.tgz"
       - name: Attach public downloads to release
         env:
           GH_TOKEN: ${{ github.token }}

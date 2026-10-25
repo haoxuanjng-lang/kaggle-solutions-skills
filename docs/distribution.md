@@ -59,6 +59,10 @@ publication it downloads existing Release assets and compares their SHA256 with
 the local files. Identical assets are preserved; only missing assets are uploaded,
 without replacement. A mismatch or an incomplete remote upload stops recovery.
 The upload step repeats this verification to catch changes during publication.
+Before any Release upload, the workflow also compares the tarball's SHA512 with
+the exact npm version's registry `dist.integrity`, including when that version
+was already published. A mismatch, missing integrity or failed registry lookup
+stops recovery even if the Release has no assets yet.
 
 Dispatch from the matching release revision. Rebuilding a ZIP can change its
 timestamps and therefore its bytes even when source content is unchanged. If
