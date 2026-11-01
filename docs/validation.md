@@ -1,5 +1,27 @@
 # Verification records
 
+## Daily official Harness runtime coverage — 2026-11-01
+
+- The latest observed scheduled [daily run](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/runs/41178008930)
+  succeeded on October 31, but its npm output recorded one skipped official
+  runtime test. The daily workflow now installs the same pinned runtime used
+  by change CI and passes its module path to the maintenance command.
+- Local maintenance passed all 15 checks: 48 Python tests, 10 npm tests with
+  zero skips, package preview, integrity checks and all five historical
+  scenario plans/validators. Knowledge validation passed separately.
+- The latest observed [archive review](https://github.com/haoxuanjng-lang/kaggle-solutions-skills/actions/runs/41178164336)
+  succeeded on October 31 and reported no change at
+  `dc9a449d84841cb9d03c110a4db16192c243d907`. No open project PR was found.
+- The current official Harness master resolved to `ce7073d51254c26cd63b22a60835b8f948deb447`.
+  Its [tool-authoring contract](https://github.com/deepseek-ai/deepseek-harness/blob/ce7073d51254c26cd63b22a60835b8f948deb447/docs/cookbook/adding-a-tool.md)
+  was read; this is source review, not runtime compatibility testing of that
+  commit. Tested compatibility remains `dsh-tools@0.2.0-rc.2` / `cordis@4.0.4`.
+
+Only repository maintenance configuration and documentation changed. Published
+version 0.2.2 and distributed skill/plugin files remain unchanged. Scenario
+checks generated plans only; no research agents, training or Kaggle submissions
+were run by those checks.
+
 ## Registry artifact recovery guard — 2026-10-24
 
 - Independent review identified an npm-only partial-publication case: an existing
