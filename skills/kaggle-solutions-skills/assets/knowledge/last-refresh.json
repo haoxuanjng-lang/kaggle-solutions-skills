@@ -1,12 +1,11 @@
 {
   "added": [
-    "ai-agent-security-multi-step-tool-attacks",
-    "biohub-cell-tracking-during-development",
-    "playground-series-s6e9",
-    "pokemon-tcg-ai-battle-challenge-strategy"
+    "kaggriculture",
+    "playground-series-s6e10",
+    "rsna-knee-abnormality-detection"
   ],
   "changed": [],
-  "current_commit": "dc9a449d84841cb9d03c110a4db16192c243d907",
-  "previous_commit": "6414951ae88d252a6c92d4489ba389b2b7cb40c7",
+  "current_commit": "2eaf7bbe9e541c1b127b860f0b27403c15d98771",
+  "previous_commit": "dc9a449d84841cb9d03c110a4db16192c243d907",
   "removed": []
 }
